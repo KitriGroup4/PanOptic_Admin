@@ -5,7 +5,6 @@ public class ComDto {
 	private int userNum;
 	private int isUse;
 	private int isBooking;
-	
 
 	public int getComNum() {
 		return comNum;

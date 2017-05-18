@@ -15,20 +15,6 @@ public class UserInfoDto {
     private String userBirth;
     private String isMale;
 
-    public UserInfoDto() {
-	userNum = -1;
-	userId = "-1";
-	userName = "-1";
-	userPw = "-1";
-	userHp = "-1";
-	userEmail = "-1";
-	userAccuTime = "-1";
-	userLeftTime = "-1";
-	userJoinDate = "-1";
-	userBirth = "-1";
-	isMale = "-1";
-    }
-
     public int getUserNum() {
 	return userNum;
     }
@@ -117,15 +103,13 @@ public class UserInfoDto {
 	this.isMale = isMale;
     }
 
-
     public void setFieldToInsert(String data) {
 	StringTokenizer fieldToken = new StringTokenizer(data, ",");
-	System.out.println(data);
+
 	int i = 1;
 	String temp;
 	while (fieldToken.hasMoreTokens()) {
 	    temp = fieldToken.nextToken();
-	    System.out.println(temp);
 	    switch (i++) {
 	    case 1:
 		userName = temp;
@@ -195,15 +179,14 @@ public class UserInfoDto {
 	    }
 	}
     }
-
     public String joinToString() {
-	return userName + "," + userId + "," + userPw + "," + userHp + "," + userEmail + "," + userBirth + "," + isMale;
+	return userId +"," + userPw + "," + userHp + "," + userEmail + "," + userBirth + "," + isMale;
     }
 
     @Override
     public String toString() {
-	return userNum + "," + userName + "," + userId + "," + userPw + "," + userHp + "," + userEmail + ","
-		+ userAccuTime + "," + userLeftTime + "," + userJoinDate + "," + userBirth + "," + isMale;
+	return userId + "," + userPw + "," + userHp + "," + userEmail + "," + userAccuTime + "," + userLeftTime + ","
+		+ userJoinDate;
     }
 
 }
