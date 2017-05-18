@@ -88,12 +88,20 @@ public class Services {
 	    if (pwCheck.equals(pw)) {
 		clientHandlerThread.sendPacket(PacketInformation.Operation.LOGIN, PacketInformation.PacketType.IS_OK,
 			num);
+
+		if (clientHandlerThread.clientProgramValue == PacketInformation.ProgramValue.USER) {
+		    sendFoodInfo();
+		}
 	    } else {
 		clientHandlerThread.sendPacket(PacketInformation.Operation.LOGIN, PacketInformation.PacketType.IS_FAIL,
 			PacketInformation.IDLE);
 	    }
 	}
 
+    }
+
+    private void sendFoodInfo() {
+	
     }
 
     public void joinUser(String data) {
@@ -151,8 +159,8 @@ public class Services {
 	if (Integer.parseInt(datas[0]) == PacketInformation.PacketType.POINT) {
 	    UserPointInfoDao uPInfoDao = new UserPointInfoDao();
 	    UserPointInfoDto upInfoDto = uPInfoDao.select(userNum);
-	    
-	    if(upInfoDto == null){
+
+	    if (upInfoDto == null) {
 		clientHandlerThread.sendPacket(PacketInformation.Operation.BUY, PacketInformation.PacketType.IS_FAIL,
 			PacketInformation.IDLE);
 		return;

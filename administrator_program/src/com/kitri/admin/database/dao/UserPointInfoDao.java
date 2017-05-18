@@ -40,7 +40,7 @@ public class UserPointInfoDao extends Dao {
 
     public UserPointInfoDto select(int num) {
 	UserPointInfoDto dto = null;
-	System.out.println("select(num)");
+	System.out.println("UserPointInfoDao::select(num) : " + num);
 	try {
 	    con = getConnection();
 	    preStmt = con.prepareStatement("select * from user_point_info where user_num = ?");
@@ -56,6 +56,7 @@ public class UserPointInfoDao extends Dao {
 		dto.setUserNum(rs.getInt(1));
 		dto.setPoint(rs.getInt(2));
 	    }
+	    System.out.println(dto.toString());
 
 	} catch (Exception e) {
 	    e.printStackTrace();

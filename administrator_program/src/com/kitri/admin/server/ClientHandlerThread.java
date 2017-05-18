@@ -113,6 +113,7 @@ public class ClientHandlerThread extends Thread {
 	    // deleteThreadSocket();
 	    Main.log("client error : " + e.toString());
 	    e.printStackTrace();
+	    done = true;
 	} finally {
 
 	    if (client != null) {
