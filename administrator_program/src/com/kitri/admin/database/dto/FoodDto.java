@@ -1,5 +1,7 @@
 package com.kitri.admin.database.dto;
 
+import java.util.StringTokenizer;
+
 public class FoodDto {
     private int foodNum;
     private String foodName;
@@ -54,6 +56,70 @@ public class FoodDto {
 
     public void setFoodOrder(String foodOrder) {
 	this.foodOrder = foodOrder;
+    }
+
+    public void setFieldToInsert(String data) {
+	StringTokenizer token = new StringTokenizer(data, ",");
+	String temp;
+	int i = 1;
+	while (token.hasMoreTokens()) {
+	    temp = token.nextToken();
+	    switch (i++) {
+	    case 1:
+		foodName = temp;
+		break;
+	    case 2:
+		foodTypeNum = Integer.parseInt(temp);
+		break;
+	    case 3:
+		foodLeftNum = Integer.parseInt(temp);
+	    case 4:
+		foodPrice = Integer.parseInt(temp);
+		break;
+	    case 5:
+		foodOrder = temp;
+		break;
+	    default:
+	    }
+	}
+    }
+
+    public void setField(String data) {
+	StringTokenizer token = new StringTokenizer(data, ",");
+	String temp;
+	int i = 0;
+	while (token.hasMoreTokens()) {
+	    temp = token.nextToken();
+	    switch (i++) {
+	    case 0:
+		foodNum = Integer.parseInt(temp);
+		break;
+	    case 1:
+		foodName = temp;
+		break;
+	    case 2:
+		foodTypeNum = Integer.parseInt(temp);
+		break;
+	    case 3:
+		foodLeftNum = Integer.parseInt(temp);
+	    case 4:
+		foodPrice = Integer.parseInt(temp);
+		break;
+	    case 5:
+		foodOrder = temp;
+		break;
+	    default:
+	    }
+	}
+    }
+
+    public String insertToString() {
+	return foodName + "," + foodTypeNum + "," + foodLeftNum + "," + foodPrice + "," + foodOrder;
+    }
+
+    @Override
+    public String toString() {
+	return foodNum + "," + foodName + "," + foodTypeNum + "," + foodLeftNum + "," + foodPrice + "," + foodOrder;
     }
 
 }
