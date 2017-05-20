@@ -56,7 +56,7 @@ public class UserPointInfoDao extends Dao {
 		dto.setUserNum(rs.getInt(1));
 		dto.setPoint(rs.getInt(2));
 	    }
-	    System.out.println(dto.toString());
+//	    System.out.println(dto.toString());
 
 	} catch (Exception e) {
 	    e.printStackTrace();

@@ -3,8 +3,8 @@ package com.kitri.admin.database.dto;
 public class ComDto {
 	private int comNum;
 	private int userNum;
-	private int isUse;
-	private int isBooking;
+	private String isUse;
+	private String isBooking;
 	
 
 	public int getComNum() {
@@ -23,21 +23,22 @@ public class ComDto {
 		this.userNum = userNum;
 	}
 
-	public int getIsUse() {
+	public String getIsUse() {
 		return isUse;
 	}
 
-	public void setIsUse(int isUse) {
+	public void setIsUse(String isUse) {
 		this.isUse = isUse;
 	}
 
-	public int getIsBooking() {
+	public String getIsBooking() {
 		return isBooking;
 	}
 
-	public void setIsBooking(int isBooking) {
+	public void setIsBooking(String isBooking) {
 		this.isBooking = isBooking;
 	}
+	
 
 	@Override
 	public String toString() {

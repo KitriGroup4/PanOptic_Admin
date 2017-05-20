@@ -5,17 +5,14 @@ import java.awt.Robot;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import com.kitri.admin.database.dao.ComPrepaidInfoDao;
-import com.kitri.admin.database.dao.PointInfoDao;
-import com.kitri.admin.database.dao.UserInfoDao;
-import com.kitri.admin.database.dao.UserPointInfoDao;
-import com.kitri.admin.database.dto.ComPrepaidInfoDto;
-import com.kitri.admin.database.dto.PointInfoDto;
-import com.kitri.admin.database.dto.UserInfoDto;
-import com.kitri.admin.database.dto.UserPointInfoDto;
+import com.kitri.admin.database.dao.*;
+import com.kitri.admin.database.dto.*;
 
 public class Services {
     ClientHandlerThread clientHandlerThread;
+    public boolean isFoodOrderEnd = true;
+
+    public ArrayList<OrderInfoDto> orderInfoList;
 
     public Services(ClientHandlerThread clientHandlerThread) {
 	this.clientHandlerThread = clientHandlerThread;
@@ -69,6 +66,7 @@ public class Services {
     }
 
     public void loginUser(String data) {
+	Main.log("loginUser()");
 	String[] datas = data.split(",");
 	String id = datas[0];
 	String pw = datas[1];
@@ -90,7 +88,13 @@ public class Services {
 			num);
 
 		if (clientHandlerThread.clientProgramValue == PacketInformation.ProgramValue.USER) {
+		    clientHandlerThread.sendPacket(PacketInformation.Operation.RESPONSE,
+			    PacketInformation.PacketType.IS_START, PacketInformation.PacketType.FOOD);
+		    sendFoodTypeInfo();
 		    sendFoodInfo();
+
+		    clientHandlerThread.sendPacket(PacketInformation.Operation.RESPONSE,
+			    PacketInformation.PacketType.IS_END, PacketInformation.PacketType.FOOD);
 		}
 	    } else {
 		clientHandlerThread.sendPacket(PacketInformation.Operation.LOGIN, PacketInformation.PacketType.IS_FAIL,
@@ -100,8 +104,30 @@ public class Services {
 
     }
 
+    private void sendFoodTypeInfo() {
+	FoodTypeDao dao = new FoodTypeDao();
+	ArrayList<FoodTypeDto> dtos = dao.selectAll();
+	int size = dtos.size();
+
+	for (int i = 0; i < size; i++) {
+	    clientHandlerThread.sendPacket(PacketInformation.Operation.RESPONSE, PacketInformation.PacketType.FOOD_TYPE,
+		    dtos.get(i).toString());
+	}
+    }
+
     private void sendFoodInfo() {
-	
+	Main.log("sendFoodInfo()");
+	FoodDao dao = new FoodDao();
+	ArrayList<FoodDto> dtos = dao.selectAll();
+
+	int size = dtos.size();
+
+	Main.log("sendFoodInfo()" + size);
+	for (int i = 0; i < size; i++) {
+	    clientHandlerThread.sendPacket(PacketInformation.Operation.RESPONSE, PacketInformation.PacketType.FOOD,
+		    dtos.get(i).toString());
+	}
+
     }
 
     public void joinUser(String data) {
@@ -216,6 +242,47 @@ public class Services {
 
 	clientHandlerThread.sendPacket(PacketInformation.Operation.BUY, PacketInformation.PacketType.IS_OK,
 		PacketInformation.IDLE);
+    }
+
+    public void addOrderInfo(String data) {
+	OrderInfoDto dto = new OrderInfoDto();
+	dto.setField(data);
+
+	orderInfoList.add(dto);
+    }
+
+    public void buyFood() {
+	int sumPrice = 0;
+	int size = orderInfoList.size();
+	OrderInfoDto dto;
+	
+	for (int i = 0; i < size; i++) {
+	    dto = orderInfoList.get(i);
+	    dto.setOrderMoney(dto.getOrderCount() * dto.getOrderMoney());
+	    sumPrice += dto.getOrderMoney();
+	}
+	Main.log("sumPrice : " + sumPrice);
+	
+
+	UserPointInfoDao uPDao = new UserPointInfoDao();
+	UserPointInfoDto uPDto = uPDao.select(orderInfoList.get(0).getUserNum());
+
+	if (uPDto != null && uPDto.getPoint() >= sumPrice) {
+	    uPDto.setPoint(uPDto.getPoint() - sumPrice);
+	    if (uPDao.update(uPDto)) {
+		OrderInfoDao dao = new OrderInfoDao();
+		for(int i = 0; i < size; i++){
+		    dao.insert(orderInfoList.get(i));
+		}
+		
+		clientHandlerThread.sendPacket(PacketInformation.Operation.BUY, PacketInformation.PacketType.FOOD,
+			PacketInformation.PacketType.IS_OK);
+		return;
+	    }
+	}
+	clientHandlerThread.sendPacket(PacketInformation.Operation.BUY, PacketInformation.PacketType.FOOD,
+		PacketInformation.PacketType.IS_FAIL);
+
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

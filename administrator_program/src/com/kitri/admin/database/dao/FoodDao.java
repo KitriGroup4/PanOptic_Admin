@@ -4,11 +4,13 @@ import java.util.ArrayList;
 
 import com.kitri.admin.database.dto.FoodDto;
 import com.kitri.admin.database.dto.UserInfoDto;
+import com.kitri.admin.server.Main;
 
 public class FoodDao extends Dao {
 
     public ArrayList<FoodDto> selectAll() {
 	ArrayList<FoodDto> dtos = new ArrayList<>();
+	Main.log("FoodDao::selectAll()");
 	
 	try {
 	    con = getConnection();

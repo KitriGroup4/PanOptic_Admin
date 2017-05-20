@@ -71,8 +71,9 @@ public class ClientHandlerThread extends Thread {
 
 	    client.register(selector, socketOptions);
 
-	    ByteBuffer buffer = ByteBuffer.allocate(4096);
+	    sendPacket(PacketInformation.Operation.RESPONSE, PacketInformation.PacketType.COM_NUM, index);
 
+	    ByteBuffer buffer = ByteBuffer.allocate(4096);
 	    while (!Thread.interrupted() && !abortable.isDone() && !done) {
 		selector.select(3000);
 
@@ -147,7 +148,7 @@ public class ClientHandlerThread extends Thread {
 	while (lineToken.hasMoreTokens()) {
 	    part = lineToken.nextToken().trim();
 
-	    System.out.print(part);
+	    Main.log("part : " + part);
 	    partLen = part.length() - 1;
 	    if (part.indexOf(PATTERN) == -1) {
 		tempPacket.append(part);
@@ -174,8 +175,8 @@ public class ClientHandlerThread extends Thread {
 		    dataPacket[i] = temp[i];
 		}
 
-		Main.log("conbinePacket() : " + dataPacket[0] + "` " + dataPacket[1] + "` " + dataPacket[2]
-			+ "` " + dataPacket[3]);
+		Main.log("conbinePacket() : " + dataPacket[0] + "` " + dataPacket[1] + "` " + dataPacket[2] + "` "
+			+ dataPacket[3]);
 		dicisionProgram();
 
 	    }
@@ -229,25 +230,72 @@ public class ClientHandlerThread extends Thread {
 	case PacketInformation.Operation.BUY:
 	    buyRequest(packetType);
 	    break;
+	case PacketInformation.Operation.START:
+	    startRequest(packetType);
+	    break;
+	case PacketInformation.Operation.END:
+	    endRequest(packetType);
+	    break;
+	case PacketInformation.IDLE:
+	    idleRequest(packetType);
+	    break;
 
 	default:
+	}
+    }
+
+    private void startRequest(int packetType) {
+	String data = dataPacket[PacketInformation.PacketStructrue.DATA];
+	
+	switch(packetType){
+	case PacketInformation.PacketType.FOOD:
+	    services.isFoodOrderEnd = false;
+	    services.orderInfoList = new ArrayList<>();
+	    break;
+	    default:
+	}
+
+    }
+
+    private void endRequest(int packetType) {
+	String data = dataPacket[PacketInformation.PacketStructrue.DATA];
+
+	switch(packetType){
+	case PacketInformation.PacketType.FOOD:
+	    services.isFoodOrderEnd = true;
+	    services.buyFood();
+	    break;
+	    default:
+	}
+    }
+
+    private void idleRequest(int packetType) {
+
+	String data = dataPacket[PacketInformation.PacketStructrue.DATA];
+	switch (packetType) {
+	case PacketInformation.IDLE:
+	    sendPacket(PacketInformation.Operation.RESPONSE, PacketInformation.PacketType.COM_NUM, index);
+	    break;
 	}
     }
 
     private void buyRequest(int packetType) {
 	Main.log("buyRequest");
 	String data = dataPacket[PacketInformation.PacketStructrue.DATA];
-	
-	switch(packetType){
+
+	switch (packetType) {
 	case PacketInformation.PacketType.POINT:
 	    services.buyPoint(data);
 	    break;
 	case PacketInformation.PacketType.TIME:
 	    services.buyTime(data);
 	    break;
-	    default:
+	case PacketInformation.PacketType.FOOD:
+	    services.addOrderInfo(data);
+	    break;
+	default:
 	}
-	
+
     }
 
     private void joinRequest(int packetType) {
