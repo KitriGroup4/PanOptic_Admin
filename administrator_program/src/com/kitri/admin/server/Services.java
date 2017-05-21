@@ -96,10 +96,21 @@ public class Services {
 		    clientHandlerThread.userNum = Integer.parseInt(num);
 
 		    startUsingCom(clientHandlerThread.userNum, clientHandlerThread.index);
-		    
+
+		    UserPointInfoDto pdto = new UserPointInfoDao().select(Integer.parseInt(num));
+		    if (pdto == null) {
+			clientHandlerThread.sendPacket(PacketInformation.Operation.RESPONSE,
+				PacketInformation.PacketType.POINT, 0);
+		    } else {
+			clientHandlerThread.sendPacket(PacketInformation.Operation.RESPONSE,
+				PacketInformation.PacketType.POINT, pdto.getPoint());
+
+		    }
+
 		    UserInfoDto dto = new UserInfoDto();
 		    dto = new UserInfoDao().select(Integer.parseInt(num));
-		    clientHandlerThread.sendPacket(PacketInformation.Operation.RESPONSE, PacketInformation.PacketType.USER_INFO, dto.toString());
+		    clientHandlerThread.sendPacket(PacketInformation.Operation.RESPONSE,
+			    PacketInformation.PacketType.USER_INFO, dto.toString());
 
 		    clientHandlerThread.sendPacket(PacketInformation.Operation.LOGIN,
 			    PacketInformation.PacketType.IS_OK, num);
@@ -117,7 +128,7 @@ public class Services {
     }
 
     private boolean isHasTime(String time) {
-	if (time == null || time.isEmpty() || time.equals("null")) {
+	if (time == null || time.isEmpty() || time.equals("null") || time.equals("0:0:0")) {
 	    Main.log("leftTime is false");
 	    return false;
 	}
@@ -147,7 +158,7 @@ public class Services {
 	clientHandlerThread.serverThread.pcMain.buttonCenter[comNum].setForeground(Color.GREEN);
     }
 
-    public void endUsingCom(int comNum, int userNum) {
+    public boolean endUsingCom(int comNum, int userNum) {
 	ComDao comDao = new ComDao();
 	ComDto comDto = new ComDto();
 	comDto.setComNum(comNum);
@@ -159,16 +170,25 @@ public class Services {
 
 	if (comUseDao.update(comUseNum)) {
 	    Main.log("endUsingCom Success !!");
+	    clientHandlerThread.serverThread.pcMain.buttonCenter[comNum].setForeground(Color.BLACK);
+	    return true;
 	} else {
 	    Main.log("endUsingCom Fail TTTT");
+	    return false;
 	}
 
-	clientHandlerThread.serverThread.pcMain.buttonCenter[comNum].setForeground(Color.BLACK);
     }
 
-    public void logoutUser() {
-	endUsingCom(clientHandlerThread.index, clientHandlerThread.userNum);
-	clientHandlerThread.userNum = -1;
+    public void logoutUser(String data) {
+	if (endUsingCom(clientHandlerThread.index, clientHandlerThread.userNum)) {
+	    clientHandlerThread.userNum = -1;
+	    UserInfoDto dto = new UserInfoDto();
+	    dto.setField(data);
+
+	    if (new UserInfoDao().updateLogout(dto)) {
+		Main.log("logout Success !!!!!");
+	    }
+	}
     }
 
     private void sendFoodTypeInfo() {

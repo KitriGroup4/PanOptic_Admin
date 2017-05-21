@@ -4,6 +4,7 @@ import java.sql.*;
 import java.util.ArrayList;
 
 import com.kitri.admin.database.dto.UserInfoDto;
+import com.kitri.admin.server.Main;
 
 public class UserInfoDao extends Dao {
     // private Dao dao;
@@ -109,21 +110,59 @@ public class UserInfoDao extends Dao {
 
     public boolean updateLeftTime(int num, String leftTime) {
 	int result = 0;
-	
+
 	try {
 	    con = getConnection();
 	    preStmt = con.prepareStatement("update user_info set user_left_time = ? where user_num = ?");
 	    preStmt.setString(1, leftTime);
 	    preStmt.setInt(2, num);
 	    result = preStmt.executeUpdate();
-	    
+
 	} catch (SQLException e) {
 	    // TODO Auto-generated catch block
 	    e.printStackTrace();
 	} finally {
 	    resetPreStmt();
 	}
+
+	return result == 1 ? true : false;
+    }
+
+    public String selectUserAccuTime(int num) {
+	String time = null;
+
+	try {
+	    con = getConnection();
+	    preStmt = con.prepareStatement("select user_accu_time from user_info where user_num = ?");
+	    preStmt.setInt(1, num);
+	    rs = preStmt.executeQuery();
+
+	    if (rs.next()) {
+		time = rs.getString(1);
+	    }
+	} catch (SQLException e) {
+	    e.printStackTrace();
+	}
+
+	return time;
+    }
+
+    public boolean updateLogout(UserInfoDto dto) {
+	int result = 0;
 	
+	try {
+	    
+	    con = getConnection();
+	    preStmt = con
+		    .prepareStatement("update user_info set user_accu_time = ?, user_left_time = ? where user_num = ?");
+	    preStmt.setString(1, dto.getUserAccuTime());
+	    preStmt.setString(2, dto.getUserLeftTime());
+	    preStmt.setInt(3, dto.getUserNum());
+	    
+	    result = preStmt.executeUpdate();
+	} catch (SQLException e) {
+	    e.printStackTrace();
+	}
 	return result == 1 ? true : false;
     }
 

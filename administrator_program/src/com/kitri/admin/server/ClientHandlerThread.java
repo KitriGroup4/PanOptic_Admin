@@ -14,6 +14,8 @@ import java.nio.channels.SocketChannel;
 import java.nio.charset.Charset;
 import java.security.Key;
 import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 import com.kitri.admin.server.PacketInformation.ProgramValue;
@@ -37,6 +39,8 @@ public class ClientHandlerThread extends Thread {
     public StringBuilder tempRecv;
 
     public int clientProgramValue;
+
+    public SimpleDateFormat format = new SimpleDateFormat("hh:mm:ss");
 
     public ClientHandlerThread(Abortable abortable, SocketChannel client, Selector selector, ServerThread serverThread,
 	    int handlerCount) {
@@ -109,12 +113,12 @@ public class ClientHandlerThread extends Thread {
 
 	} catch (Exception e) {
 	    // deleteThreadSocket();
-//	    Main.log("client error : " + e.toString());
-//	    e.printStackTrace();
+	    // Main.log("client error : " + e.toString());
+	    // e.printStackTrace();
 	    done = true;
 	} finally {
-	    if(userNum != -1){
-		    services.endUsingCom(index, userNum);		
+	    if (userNum != -1) {
+		services.endUsingCom(index, userNum);
 	    }
 	    if (client != null) {
 		try {
@@ -217,6 +221,9 @@ public class ClientHandlerThread extends Thread {
 	int packetType = Integer.parseInt(dataPacket[PacketInformation.PacketStructrue.PACKET_TYPE]);
 
 	switch (operator) {
+	case PacketInformation.Operation.TIMER:
+	    
+	    break;
 	case PacketInformation.Operation.GET:
 	    getRequest(packetType);
 	    break;
@@ -236,7 +243,8 @@ public class ClientHandlerThread extends Thread {
 	    endRequest(packetType);
 	    break;
 	case PacketInformation.Operation.LOGOUT:
-	    services.logoutUser();
+	    logoutRequest(packetType);
+//	    services.logoutUser();
 	    break;
 	case PacketInformation.IDLE:
 	    idleRequest(packetType);
@@ -245,16 +253,37 @@ public class ClientHandlerThread extends Thread {
 	default:
 	}
     }
-
-    private void startRequest(int packetType) {
+    
+    private void timerRequest(int packetType){
 	String data = dataPacket[PacketInformation.PacketStructrue.DATA];
 	
 	switch(packetType){
+	case PacketInformation.PacketType.TIME:
+	    
+	    break;
+	}
+	
+    }
+    
+    private void logoutRequest(int packetType){
+	String data = dataPacket[PacketInformation.PacketStructrue.DATA];
+	
+	switch(packetType){
+	case PacketInformation.PacketType.USER_INFO:
+	    services.logoutUser(data);
+	    break;
+	}
+    }
+
+    private void startRequest(int packetType) {
+	String data = dataPacket[PacketInformation.PacketStructrue.DATA];
+
+	switch (packetType) {
 	case PacketInformation.PacketType.FOOD:
 	    services.isFoodOrderEnd = false;
 	    services.orderInfoList = new ArrayList<>();
 	    break;
-	    default:
+	default:
 	}
 
     }
@@ -262,12 +291,12 @@ public class ClientHandlerThread extends Thread {
     private void endRequest(int packetType) {
 	String data = dataPacket[PacketInformation.PacketStructrue.DATA];
 
-	switch(packetType){
+	switch (packetType) {
 	case PacketInformation.PacketType.FOOD:
 	    services.isFoodOrderEnd = true;
 	    services.buyFood();
 	    break;
-	    default:
+	default:
 	}
     }
 

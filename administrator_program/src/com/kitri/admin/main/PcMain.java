@@ -31,7 +31,7 @@ public class PcMain extends JFrame {
     int topMenuNum = 8;
 
     int comRowNum = 10;
-    int comNum = 20;
+    int comNum = 27;
     int totalCom = comRowNum * comRowNum;
 
     String topMenuTitle[] = { "매장", "고객", "재고", "직원", "통계", "제어", "관리" };
