@@ -18,6 +18,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
+import com.kitri.admin.database.dto.UserInfoDto;
 import com.kitri.admin.server.PacketInformation.ProgramValue;
 
 public class ClientHandlerThread extends Thread {
@@ -37,6 +38,9 @@ public class ClientHandlerThread extends Thread {
     public boolean isLogined;
 
     public StringBuilder tempRecv;
+    public UserInfoDto userInfo;
+    public String useTime;
+    public String leftTime;
 
     public int clientProgramValue;
 
@@ -222,7 +226,7 @@ public class ClientHandlerThread extends Thread {
 
 	switch (operator) {
 	case PacketInformation.Operation.TIMER:
-	    
+	    timerRequest(packetType);
 	    break;
 	case PacketInformation.Operation.GET:
 	    getRequest(packetType);
@@ -259,7 +263,7 @@ public class ClientHandlerThread extends Thread {
 	
 	switch(packetType){
 	case PacketInformation.PacketType.TIME:
-	    
+	    services.setTime(data);
 	    break;
 	}
 	

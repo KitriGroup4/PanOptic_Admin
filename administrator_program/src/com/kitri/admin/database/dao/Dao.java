@@ -8,7 +8,7 @@ public class Dao {
 //    public final String upw = "pc_manager";
     public final String uid = "test";
     public final String upw = "test";
-
+    public String sql = "";
     protected Connection con;
     protected Statement stmt;
     protected PreparedStatement preStmt;

@@ -8,6 +8,7 @@ import java.util.ArrayList;
 
 import com.kitri.admin.database.dao.*;
 import com.kitri.admin.database.dto.*;
+import com.kitri.admin.main.PcMain.ComInfo;
 
 public class Services {
     ClientHandlerThread clientHandlerThread;
@@ -95,6 +96,9 @@ public class Services {
 			    PacketInformation.PacketType.IS_END, PacketInformation.PacketType.FOOD);
 		    clientHandlerThread.userNum = Integer.parseInt(num);
 
+		    UserInfoDto dto = new UserInfoDto();
+		    dto = new UserInfoDao().select(Integer.parseInt(num));
+		    clientHandlerThread.userInfo = dto;
 		    startUsingCom(clientHandlerThread.userNum, clientHandlerThread.index);
 
 		    UserPointInfoDto pdto = new UserPointInfoDao().select(Integer.parseInt(num));
@@ -107,8 +111,6 @@ public class Services {
 
 		    }
 
-		    UserInfoDto dto = new UserInfoDto();
-		    dto = new UserInfoDao().select(Integer.parseInt(num));
 		    clientHandlerThread.sendPacket(PacketInformation.Operation.RESPONSE,
 			    PacketInformation.PacketType.USER_INFO, dto.toString());
 
@@ -155,7 +157,12 @@ public class Services {
 	    Main.log("startUsingCom fail TTT");
 	}
 
-	clientHandlerThread.serverThread.pcMain.buttonCenter[comNum].setForeground(Color.GREEN);
+	clientHandlerThread.serverThread.pcMain.comInfos.get(comNum).name = clientHandlerThread.userInfo.getUserName();
+	Main.log("12312312312312312");
+	clientHandlerThread.serverThread.pcMain.comInfos.get(comNum).useTime = "0:0:0";
+	clientHandlerThread.serverThread.pcMain.coms.get(comNum)
+		.setText(clientHandlerThread.serverThread.pcMain.comInfos.get(comNum).toString());
+	clientHandlerThread.serverThread.pcMain.coms.get(comNum).setForeground(Color.GREEN);
     }
 
     public boolean endUsingCom(int comNum, int userNum) {
@@ -170,7 +177,11 @@ public class Services {
 
 	if (comUseDao.update(comUseNum)) {
 	    Main.log("endUsingCom Success !!");
-	    clientHandlerThread.serverThread.pcMain.buttonCenter[comNum].setForeground(Color.BLACK);
+
+	    clientHandlerThread.serverThread.pcMain.comInfos.get(comNum).name = "";
+	    clientHandlerThread.serverThread.pcMain.comInfos.get(comNum).useTime = "";
+	    clientHandlerThread.serverThread.pcMain.coms.get(comNum).setText(clientHandlerThread.serverThread.pcMain.comInfos.get(comNum).toString());
+	    clientHandlerThread.serverThread.pcMain.coms.get(comNum).setForeground(Color.BLACK);
 	    return true;
 	} else {
 	    Main.log("endUsingCom Fail TTTT");
@@ -214,6 +225,17 @@ public class Services {
 	    clientHandlerThread.sendPacket(PacketInformation.Operation.RESPONSE, PacketInformation.PacketType.FOOD,
 		    dtos.get(i).toString());
 	}
+
+    }
+
+    public void setTime(String data) {
+	String[] times = data.split(","); // leftTime,useTime
+	clientHandlerThread.leftTime = times[0];
+	clientHandlerThread.useTime = times[1];
+
+	ComInfo comInfo = clientHandlerThread.serverThread.pcMain.comInfos.get(clientHandlerThread.index);
+	comInfo.useTime = times[1];
+	clientHandlerThread.serverThread.pcMain.coms.get(clientHandlerThread.index).setText(comInfo.toString());
 
     }
 
