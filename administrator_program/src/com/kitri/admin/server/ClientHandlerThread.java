@@ -25,16 +25,13 @@ public class ClientHandlerThread extends Thread {
     private Selector selector;
     private CharBuffer recvData;
     public String[] dataPacket;
-    private ServerThread serverThread;
+    public ServerThread serverThread;
     public Services services;
 
     public int myCount;
 
     public int index;
-    public String key = "9999";
-    public boolean isAuto = false;
-    public boolean isAutoOut = false;
-    public int LEARSACount = 0;
+    public int userNum = -1;
     public boolean isLogined;
 
     public StringBuilder tempRecv;
@@ -112,11 +109,13 @@ public class ClientHandlerThread extends Thread {
 
 	} catch (Exception e) {
 	    // deleteThreadSocket();
-	    Main.log("client error : " + e.toString());
-	    e.printStackTrace();
+//	    Main.log("client error : " + e.toString());
+//	    e.printStackTrace();
 	    done = true;
 	} finally {
-
+	    if(userNum != -1){
+		    services.endUsingCom(index, userNum);		
+	    }
 	    if (client != null) {
 		try {
 		    done = true;
@@ -235,6 +234,9 @@ public class ClientHandlerThread extends Thread {
 	    break;
 	case PacketInformation.Operation.END:
 	    endRequest(packetType);
+	    break;
+	case PacketInformation.Operation.LOGOUT:
+	    services.logoutUser();
 	    break;
 	case PacketInformation.IDLE:
 	    idleRequest(packetType);

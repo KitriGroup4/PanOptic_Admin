@@ -1,6 +1,7 @@
 package com.kitri.admin.server;
 
 import java.awt.AWTException;
+import java.awt.Color;
 import java.awt.Robot;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -66,7 +67,6 @@ public class Services {
     }
 
     public void loginUser(String data) {
-	Main.log("loginUser()");
 	String[] datas = data.split(",");
 	String id = datas[0];
 	String pw = datas[1];
@@ -75,19 +75,17 @@ public class Services {
 	String temp = dao.checkId(id);
 	String[] temps;
 
-	if (temp.isEmpty()) {
-	    clientHandlerThread.sendPacket(PacketInformation.Operation.LOGIN, PacketInformation.PacketType.IS_FAIL,
-		    PacketInformation.IDLE);
-	    return;
-	} else {
-	    temps = temp.split(",");
-	    String num = temps[0];
-	    pwCheck = temps[1];
-	    if (pwCheck.equals(pw)) {
-		clientHandlerThread.sendPacket(PacketInformation.Operation.LOGIN, PacketInformation.PacketType.IS_OK,
-			num);
+	Main.log("loginUser() : " + temp);
+	if (!temp.isEmpty()) {
 
-		if (clientHandlerThread.clientProgramValue == PacketInformation.ProgramValue.USER) {
+	    temps = temp.split(",");
+	    String num = temps[0]; // userNum
+	    pwCheck = temps[1];
+	    String leftTime = temps[2];
+	    Main.log("userLeftTime : " + leftTime);
+	    if (pwCheck.equals(pw)) {
+		if (clientHandlerThread.clientProgramValue == PacketInformation.ProgramValue.USER
+			&& isHasTime(leftTime)) {
 		    clientHandlerThread.sendPacket(PacketInformation.Operation.RESPONSE,
 			    PacketInformation.PacketType.IS_START, PacketInformation.PacketType.FOOD);
 		    sendFoodTypeInfo();
@@ -95,13 +93,82 @@ public class Services {
 
 		    clientHandlerThread.sendPacket(PacketInformation.Operation.RESPONSE,
 			    PacketInformation.PacketType.IS_END, PacketInformation.PacketType.FOOD);
+		    clientHandlerThread.userNum = Integer.parseInt(num);
+
+		    startUsingCom(clientHandlerThread.userNum, clientHandlerThread.index);
+		    
+		    UserInfoDto dto = new UserInfoDto();
+		    dto = new UserInfoDao().select(Integer.parseInt(num));
+		    clientHandlerThread.sendPacket(PacketInformation.Operation.RESPONSE, PacketInformation.PacketType.USER_INFO, dto.toString());
+
+		    clientHandlerThread.sendPacket(PacketInformation.Operation.LOGIN,
+			    PacketInformation.PacketType.IS_OK, num);
+		    return;
+
+		} else if (clientHandlerThread.clientProgramValue == PacketInformation.ProgramValue.PAYMENT) {
+		    clientHandlerThread.sendPacket(PacketInformation.Operation.LOGIN,
+			    PacketInformation.PacketType.IS_OK, num);
+		    return;
 		}
-	    } else {
-		clientHandlerThread.sendPacket(PacketInformation.Operation.LOGIN, PacketInformation.PacketType.IS_FAIL,
-			PacketInformation.IDLE);
 	    }
 	}
+	clientHandlerThread.sendPacket(PacketInformation.Operation.LOGIN, PacketInformation.PacketType.IS_FAIL,
+		PacketInformation.IDLE);
+    }
 
+    private boolean isHasTime(String time) {
+	if (time == null || time.isEmpty() || time.equals("null")) {
+	    Main.log("leftTime is false");
+	    return false;
+	}
+
+	return true;
+    }
+
+    private void startUsingCom(int userNum, int comNum) {
+	ComDao comDao = new ComDao();
+	ComDto comDto = new ComDto();
+	comDto.setComNum(comNum);
+	comDto.setUserNum(userNum);
+	comDao.update(comDto);
+
+	ComUseInfoDto comUseDto = new ComUseInfoDto();
+	ComUseInfoDao comUseDao = new ComUseInfoDao();
+
+	comUseDto.setComNum(comNum);
+	comUseDto.setUserNum(userNum);
+
+	if (comUseDao.insert(comUseDto)) {
+	    Main.log("startUsingCom success !!!");
+	} else {
+	    Main.log("startUsingCom fail TTT");
+	}
+
+	clientHandlerThread.serverThread.pcMain.buttonCenter[comNum].setForeground(Color.GREEN);
+    }
+
+    public void endUsingCom(int comNum, int userNum) {
+	ComDao comDao = new ComDao();
+	ComDto comDto = new ComDto();
+	comDto.setComNum(comNum);
+	comDto.setUserNum(-1);
+	comDao.update(comDto);
+
+	ComUseInfoDao comUseDao = new ComUseInfoDao();
+	int comUseNum = comUseDao.selectNum(comNum, userNum);
+
+	if (comUseDao.update(comUseNum)) {
+	    Main.log("endUsingCom Success !!");
+	} else {
+	    Main.log("endUsingCom Fail TTTT");
+	}
+
+	clientHandlerThread.serverThread.pcMain.buttonCenter[comNum].setForeground(Color.BLACK);
+    }
+
+    public void logoutUser() {
+	endUsingCom(clientHandlerThread.index, clientHandlerThread.userNum);
+	clientHandlerThread.userNum = -1;
     }
 
     private void sendFoodTypeInfo() {
@@ -255,14 +322,13 @@ public class Services {
 	int sumPrice = 0;
 	int size = orderInfoList.size();
 	OrderInfoDto dto;
-	
+
 	for (int i = 0; i < size; i++) {
 	    dto = orderInfoList.get(i);
 	    dto.setOrderMoney(dto.getOrderCount() * dto.getOrderMoney());
 	    sumPrice += dto.getOrderMoney();
 	}
 	Main.log("sumPrice : " + sumPrice);
-	
 
 	UserPointInfoDao uPDao = new UserPointInfoDao();
 	UserPointInfoDto uPDto = uPDao.select(orderInfoList.get(0).getUserNum());
@@ -271,10 +337,10 @@ public class Services {
 	    uPDto.setPoint(uPDto.getPoint() - sumPrice);
 	    if (uPDao.update(uPDto)) {
 		OrderInfoDao dao = new OrderInfoDao();
-		for(int i = 0; i < size; i++){
+		for (int i = 0; i < size; i++) {
 		    dao.insert(orderInfoList.get(i));
 		}
-		
+
 		clientHandlerThread.sendPacket(PacketInformation.Operation.BUY, PacketInformation.PacketType.FOOD,
 			PacketInformation.PacketType.IS_OK);
 		return;

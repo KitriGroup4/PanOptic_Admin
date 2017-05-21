@@ -171,7 +171,7 @@ public class UserInfoDao extends Dao {
 
 	try {
 	    con = getConnection();
-	    preStmt = con.prepareStatement("select user_num, user_pw from user_info where user_id = ?");
+	    preStmt = con.prepareStatement("select user_num, user_pw, user_left_time from user_info where user_id = ?");
 	    preStmt.setString(1, id);
 	    rs = preStmt.executeQuery();
 
@@ -179,6 +179,8 @@ public class UserInfoDao extends Dao {
 		result += rs.getInt(1);
 		result += ",";
 		result += rs.getString(2);
+		result += ",";
+		result += rs.getString(3);
 	    }
 
 	} catch (SQLException e) {

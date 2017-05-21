@@ -6,6 +6,11 @@ public class ComDto {
 	private String isUse;
 	private String isBooking;
 	
+	public ComDto() {
+	    isUse = "0";
+	    isBooking = "0";
+	}
+	
 
 	public int getComNum() {
 		return comNum;

@@ -9,16 +9,21 @@ import java.nio.channels.SocketChannel;
 import java.util.*;
 import java.util.Map.Entry;
 
+import com.kitri.admin.main.PcMain;
+
 public class ServerThread extends Thread {
 
     private Abortable abortable;
     public Hashtable<Integer, ClientHandlerThread> socketList = new Hashtable<Integer, ClientHandlerThread>();
     public static int handlerCount;
     public static boolean isChangeClientList;
+    public PcMain pcMain;
 
     public ServerThread(Abortable abortable) {
 	this.abortable = abortable;
-	handlerCount = 0;
+	handlerCount = 1;
+	pcMain = new PcMain();
+	pcMain.setVisible(true);
 
     }
 
