@@ -27,7 +27,7 @@ public class AdminLogin extends JFrame {
 	AdminLoginCon control;
 	
 	public AdminLogin() {
-		pcMain = new PcMain();
+		pcMain = new PcMain(null);
 		control = new AdminLoginCon(this);
 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

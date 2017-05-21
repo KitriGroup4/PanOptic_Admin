@@ -22,7 +22,7 @@ public class ServerThread extends Thread {
     public ServerThread(Abortable abortable) {
 	this.abortable = abortable;
 	handlerCount = 1;
-	pcMain = new PcMain();
+	pcMain = new PcMain(this);
 	pcMain.setVisible(true);
 
     }

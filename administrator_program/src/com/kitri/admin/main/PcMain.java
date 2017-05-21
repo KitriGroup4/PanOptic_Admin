@@ -17,6 +17,7 @@ import com.kitri.admin.main.statPanel.StatMain;
 //import com.kitri.admin.main.statPanel.StatMain;
 //import com.kitri.admin.main.storePanel.StoreMain;
 import com.kitri.admin.main.storePanel.StoreMain;
+import com.kitri.admin.server.ServerThread;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -25,7 +26,7 @@ import java.util.ArrayList;
 
 public class PcMain extends JFrame {
 
-    private JPanel contentPane;
+    public JPanel contentPane;
 
     int topMenuNum = 8;
 
@@ -46,6 +47,7 @@ public class PcMain extends JFrame {
 //    public JTextArea buttonCenter[] = new JTextArea[comNum];
     public PcMainController controller;
     public JButton[] topMenuButton = new JButton[topMenuNum - 1];
+    public ComDetailView detailView;
 
     private CardLayout cl = new CardLayout();
      StoreMain storeJPanel = new StoreMain();
@@ -55,9 +57,12 @@ public class PcMain extends JFrame {
      StatMain statJPanel = new StatMain();
      ControlPanel controlJPanel = new ControlPanel();
      ManageMain managementJPanel = new ManageMain();
+     
+     public ServerThread server;
     ////////////////////////////////////////////////////////////
 
-    public PcMain() {
+    public PcMain(ServerThread server) {
+	this.server = server;
 	comInfos = new ArrayList<>();
 	coms = new ArrayList<>();
 	controller = new PcMainController(this);
@@ -71,6 +76,8 @@ public class PcMain extends JFrame {
 
 	// 센터 pc 자리 채우기
 	
+	detailView = new ComDetailView(this);
+	contentPane.add(detailView);
 	JPanel center = new JPanel();
 	contentPane.add(center, BorderLayout.CENTER);
 	center.setLayout(new GridLayout(comRowNum, comRowNum, 30, 30));
@@ -81,6 +88,8 @@ public class PcMain extends JFrame {
 	    comInfos.add(new ComInfo(i));
 	    coms.add(new JTextArea(comInfos.get(i).toString()));
 	    coms.get(i).setEditable(false);
+	    coms.get(i).setFocusable(false);
+//	    coms.get(i).setEnabled(false);
 	    coms.get(i).addMouseListener(controller);
 	    center.add(coms.get(i));
 //	    buttonCenter[i] = new JTextArea("pc " + (i + 1));
