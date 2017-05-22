@@ -47,7 +47,7 @@ public class PcMain extends JFrame {
 //    public JTextArea buttonCenter[] = new JTextArea[comNum];
     public PcMainController controller;
     public JButton[] topMenuButton = new JButton[topMenuNum - 1];
-    public ComDetailView detailView;
+    public ArrayList<ComDetailView> detailViews;
 
     private CardLayout cl = new CardLayout();
      StoreMain storeJPanel = new StoreMain();
@@ -59,11 +59,16 @@ public class PcMain extends JFrame {
      ManageMain managementJPanel = new ManageMain();
      
      public ServerThread server;
+     public ArrayList<String> userTimes;
+     public ArrayList<String> leftTimes;
     ////////////////////////////////////////////////////////////
 
     public PcMain(ServerThread server) {
 	this.server = server;
 	comInfos = new ArrayList<>();
+	userTimes = new ArrayList<>();
+	leftTimes = new ArrayList<>();
+	detailViews = new ArrayList<>();
 	coms = new ArrayList<>();
 	controller = new PcMainController(this);
 	
@@ -75,9 +80,13 @@ public class PcMain extends JFrame {
 	contentPane.setLayout(new BorderLayout(20, 20));
 
 	// 센터 pc 자리 채우기
-	
-	detailView = new ComDetailView(this);
-	contentPane.add(detailView);
+	for(int i = 0; i < comNum; i++){
+	    userTimes.add("");
+	    leftTimes.add("");
+	    detailViews.add(new ComDetailView(this));
+	    contentPane.add(detailViews.get(i));
+	}
+//	contentPane.add(detailView);
 	JPanel center = new JPanel();
 	contentPane.add(center, BorderLayout.CENTER);
 	center.setLayout(new GridLayout(comRowNum, comRowNum, 30, 30));

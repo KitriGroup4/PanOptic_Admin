@@ -39,8 +39,6 @@ public class ClientHandlerThread extends Thread {
 
     public StringBuilder tempRecv;
     public UserInfoDto userInfo;
-    public String useTime;
-    public String leftTime;
 
     public int clientProgramValue;
 
@@ -48,6 +46,7 @@ public class ClientHandlerThread extends Thread {
 
     public ClientHandlerThread(Abortable abortable, SocketChannel client, Selector selector, ServerThread serverThread,
 	    int handlerCount) {
+	
 	this.abortable = abortable;
 	this.client = client;
 	services = new Services(this);

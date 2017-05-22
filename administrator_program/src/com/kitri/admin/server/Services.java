@@ -8,6 +8,7 @@ import java.util.ArrayList;
 
 import com.kitri.admin.database.dao.*;
 import com.kitri.admin.database.dto.*;
+import com.kitri.admin.main.PcMain;
 import com.kitri.admin.main.PcMain.ComInfo;
 
 public class Services {
@@ -230,12 +231,18 @@ public class Services {
 
     public void setTime(String data) {
 	String[] times = data.split(","); // leftTime,useTime
-	clientHandlerThread.leftTime = times[0];
-	clientHandlerThread.useTime = times[1];
+	PcMain pcMain = clientHandlerThread.serverThread.pcMain;
+	int index = clientHandlerThread.index;
+	pcMain.leftTimes.set(index, times[0]);
+	pcMain.userTimes.set(index, times[1]);
 
-	ComInfo comInfo = clientHandlerThread.serverThread.pcMain.comInfos.get(clientHandlerThread.index);
+	ComInfo comInfo = pcMain.comInfos.get(index);
 	comInfo.useTime = times[1];
-	clientHandlerThread.serverThread.pcMain.coms.get(clientHandlerThread.index).setText(comInfo.toString());
+	pcMain.coms.get(index).setText(comInfo.toString());
+	
+	pcMain.detailViews.get(index).comViewUseTime.setText(times[1]);
+	pcMain.detailViews.get(index).comViewRestTime.setText(times[0]);
+	
 
     }
 
