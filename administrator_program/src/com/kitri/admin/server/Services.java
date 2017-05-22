@@ -5,6 +5,7 @@ import java.awt.Color;
 import java.awt.Robot;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.StringTokenizer;
 
 import com.kitri.admin.database.dao.*;
 import com.kitri.admin.database.dto.*;
@@ -227,6 +228,20 @@ public class Services {
 		    dtos.get(i).toString());
 	}
 
+    }
+    
+    public void setProgram(String data){
+//	Main.log("program : " + data);
+	StringTokenizer token = new StringTokenizer(data, ",");
+	PcMain pcMain = clientHandlerThread.serverThread.pcMain;
+    	StringBuilder temp = new StringBuilder("");
+//	Main.log("program size : " + token.countTokens());
+//	pcMain.detailViews.get(clientHandlerThread.index).comViewUseProgramTA.setText("");
+	while(token.hasMoreTokens()){
+	    temp.append(token.nextToken() + "\n");
+//	    Main.log(temp);
+	}
+	pcMain.detailViews.get(clientHandlerThread.index).comViewUseProgramTA.setText(temp + "\n");
     }
 
     public void setTime(String data) {

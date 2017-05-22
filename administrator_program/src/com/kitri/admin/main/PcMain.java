@@ -3,7 +3,7 @@ package com.kitri.admin.main;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 
-import com.kitri.admin.main.controlPanel.ControlPanel;
+import com.kitri.admin.main.controlPanel.ControlMain;
 import com.kitri.admin.main.customerPanel.CusMain;
 import com.kitri.admin.main.employeePanel.EmpMain;
 //import com.kitri.admin.main.customerPanel.CusMain;
@@ -55,7 +55,7 @@ public class PcMain extends JFrame {
      LeftMain leftOverJPanel = new LeftMain();
      EmpMain employeeJPanel = new EmpMain();
      StatMain statJPanel = new StatMain();
-     ControlPanel controlJPanel = new ControlPanel();
+     ControlMain controllMain = new ControlMain();
      ManageMain managementJPanel = new ManageMain();
      
      public ServerThread server;
@@ -143,7 +143,7 @@ public class PcMain extends JFrame {
 	 cardPanel.add(leftOverJPanel, topMenuTitle[2]);
 	 cardPanel.add(employeeJPanel, topMenuTitle[3]);
 	 cardPanel.add(statJPanel, topMenuTitle[4]);
-	 cardPanel.add(controlJPanel, topMenuTitle[5]);
+	 cardPanel.add(controllMain, topMenuTitle[5]);
 	 cardPanel.add(managementJPanel, topMenuTitle[6]);
 
 	setLocationRelativeTo(null);

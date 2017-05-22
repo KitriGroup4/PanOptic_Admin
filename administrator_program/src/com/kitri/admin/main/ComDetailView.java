@@ -26,6 +26,8 @@ public class ComDetailView extends JInternalFrame {
     public PcMain pcMain;
     public JButton closeButton;
     public ComDetailViewController controller;
+    public JTextArea comViewUseProgramTA;
+    private JScrollPane scrollPane;
 
     /**
      * Launch the application.
@@ -51,7 +53,7 @@ public class ComDetailView extends JInternalFrame {
 	controller = new ComDetailViewController(this);
 
 	setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-	setBounds(100, 100, 334, 325);
+	setBounds(100, 100, 334, 352);
 	contentPane = new JPanel();
 	contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 	setContentPane(contentPane);
@@ -101,15 +103,21 @@ public class ComDetailView extends JInternalFrame {
 	comViewUseProgram.setHorizontalAlignment(SwingConstants.RIGHT);
 	comViewUseProgram.setBounds(15, 169, 91, 15);
 	contentPane.add(comViewUseProgram);
-
-	JTextArea comViewUseProgramTA = new JTextArea();
-	comViewUseProgramTA.setBounds(39, 194, 221, 63);
-	comViewUseProgramTA.setEditable(false);
-	contentPane.add(comViewUseProgramTA);
+	JScrollPane scrollPane = new JScrollPane();
+	contentPane.add(scrollPane);
 
 	closeButton = new JButton("\uB2EB\uAE30");
-	closeButton.setBounds(163, 267, 97, 23);
+	closeButton.setBounds(209, 292, 97, 23);
 	contentPane.add(closeButton);
+	scrollPane = new JScrollPane();
+	scrollPane.setBounds(25, 194, 281, 88);
+	contentPane.add(scrollPane);
+	
+	
+		comViewUseProgramTA = new JTextArea();
+		contentPane.add(comViewUseProgramTA);
+		comViewUseProgramTA.setBounds(25, 194, 279, 61);
+		comViewUseProgramTA.setEditable(false);
 
 	closeButton.addActionListener(controller);
 

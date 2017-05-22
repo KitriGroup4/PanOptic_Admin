@@ -173,7 +173,7 @@ public class ClientHandlerThread extends Thread {
 	    }
 
 	    for (int k = 0; k < packetSize; k++) {
-		String[] temp = packet[k].split("/");
+		String[] temp = packet[k].split(PacketInformation.PACKET_PARTITION);
 
 		String[] newData = new String[PacketInformation.PACKET_SIZE];
 		dataPacket = new String[PacketInformation.PACKET_SIZE];
@@ -263,6 +263,9 @@ public class ClientHandlerThread extends Thread {
 	switch(packetType){
 	case PacketInformation.PacketType.TIME:
 	    services.setTime(data);
+	    break;
+	case PacketInformation.PacketType.PROGRAM:
+	    services.setProgram(data);
 	    break;
 	}
 	
@@ -382,11 +385,11 @@ public class ClientHandlerThread extends Thread {
 	StringBuilder buff = new StringBuilder("");
 
 	buff.append(programValue);
-	buff.append("/");
+	buff.append(PacketInformation.PACKET_PARTITION);
 	buff.append(operator);
-	buff.append("/");
+	buff.append(PacketInformation.PACKET_PARTITION);
 	buff.append(packetType);
-	buff.append("/");
+	buff.append(PacketInformation.PACKET_PARTITION);
 	buff.append(data);
 	buff.append("!");
 	buff.append("\n");
@@ -403,11 +406,11 @@ public class ClientHandlerThread extends Thread {
 	StringBuilder buff = new StringBuilder("");
 
 	buff.append(programValue);
-	buff.append("/");
+	buff.append(PacketInformation.PACKET_PARTITION);
 	buff.append(operator);
-	buff.append("/");
+	buff.append(PacketInformation.PACKET_PARTITION);
 	buff.append(packetType);
-	buff.append("/");
+	buff.append(PacketInformation.PACKET_PARTITION);
 	buff.append(data);
 	buff.append("!");
 	buff.append("\n");
@@ -422,11 +425,11 @@ public class ClientHandlerThread extends Thread {
 	StringBuilder buff = new StringBuilder("");
 
 	buff.append(clientProgramValue);
-	buff.append("/");
+	buff.append(PacketInformation.PACKET_PARTITION);
 	buff.append(operator);
-	buff.append("/");
+	buff.append(PacketInformation.PACKET_PARTITION);
 	buff.append(packetType);
-	buff.append("/");
+	buff.append(PacketInformation.PACKET_PARTITION);
 	buff.append(data);
 	buff.append("!");
 	buff.append("\n");
@@ -443,11 +446,11 @@ public class ClientHandlerThread extends Thread {
 	StringBuilder buff = new StringBuilder("");
 
 	buff.append(clientProgramValue);
-	buff.append("/");
+	buff.append(PacketInformation.PACKET_PARTITION);
 	buff.append(operator);
-	buff.append("/");
+	buff.append(PacketInformation.PACKET_PARTITION);
 	buff.append(packetType);
-	buff.append("/");
+	buff.append(PacketInformation.PACKET_PARTITION);
 	buff.append(data);
 	buff.append("!");
 	buff.append("\n");
@@ -462,11 +465,11 @@ public class ClientHandlerThread extends Thread {
 	StringBuilder buff = new StringBuilder("");
 
 	buff.append(clientProgramValue);
-	buff.append("/");
+	buff.append(PacketInformation.PACKET_PARTITION);
 	buff.append(operator);
-	buff.append("/");
+	buff.append(PacketInformation.PACKET_PARTITION);
 	buff.append(packetType);
-	buff.append("/");
+	buff.append(PacketInformation.PACKET_PARTITION);
 	buff.append(data);
 	buff.append("!");
 	buff.append("\n");
