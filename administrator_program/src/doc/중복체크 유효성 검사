@@ -1,0 +1,44 @@
+public void checkId(String id) {
+   Main.log("checkId()");
+   UserInfoDao dao = new UserInfoDaoImpl();
+   if (dao.checkId(id).isEmpty()) {
+       clientHandlerThread.sendPacket(PacketInformation.Operation.JOIN, PacketInformation.PacketType.CHECK_USER_ID,
+          1);
+   } else {
+       clientHandlerThread.sendPacket(PacketInformation.Operation.JOIN, PacketInformation.PacketType.CHECK_USER_ID,
+          0);
+   }
+    }
+    
+  private boolean checkField(String pw, String pwCheck, String email, String hp) {
+  
+   int len = pw.length();
+   if (len < 8) {
+       join.pwTooShort();
+       return false;
+   }
+   if (!pw.equals(pwCheck)) {
+       join.pwCheckError();
+       return false;
+   }
+   if (!email.contains("@") || !email.contains(".") || email.startsWith("@") || email.startsWith(".")) {
+       join.emailInputError();
+       return false;
+   }
+   len = hp.length();
+   boolean isHp = true;
+   for (int i = 0; i < len; i++) {
+       if (hp.charAt(i) < '0' || hp.charAt(i) > '9') {
+      isHp = false;
+      break;
+       }
+   }
+   if (len != 11 || !hp.startsWith("010") || !isHp) {
+       join.hpInputError();
+       return false;
+   }
+
+   return true;
+    }
+
+}

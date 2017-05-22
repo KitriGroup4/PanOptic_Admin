@@ -1,0 +1,53 @@
+drop table employees;
+
+drop sequence employees_seq;
+
+CREATE SEQUENCE EMPLOYEES_SEQ 
+INCREMENT BY 1 
+START WITH 1 
+MINVALUE 0;
+
+-- Employees
+CREATE TABLE Employees (
+	employee_num           INTEGER     NOT NULL, -- 직원정보번호
+	employee_name          VARCHAR(20) NOT NULL, -- 직원명
+	employee_hp            VARCHAR(20) NOT NULL, -- 핸드폰번호
+	employee_hire_date     DATE        NOT NULL, -- 입사일
+	employee_id            VARCHAR(20) NOT NULL, -- 직원ID
+	employee_pw            VARCHAR(20) NOT NULL, -- 직원PW
+	employee_email         VARCHAR(20) NOT NULL, -- 직원Email
+	employee_birth         VARCHAR(10) NOT NULL, -- 생년월일
+	employee_position      VARCHAR(20) NOT NULL, -- 직급
+	employee_hour_pay_rate INTEGER     NOT NULL, -- 시급
+	employee_isMale        VARCHAR(1)  NULL      -- 성별
+);
+
+select * from employees;
+
+insert into employees values(employees_seq.nextval,'유정은','01028864780',sysdate,'yje23','123123123','youje92@naver.com','1992-12-22','manager','10000',0);
+insert into employees values(employees_seq.nextval,'김도영','01022228888',sysdate,'kdy23','123123123','kdy@naver.com','1990-11-22','worker','10000',0);
+insert into employees values(employees_seq.nextval,'이창선','01011118888',sysdate,'ycs23','123123123','ycs@naver.com','1992-10-22','worker',10000,1);
+insert into employees values(employees_seq.nextval,'임택','01033338888',sysdate,'yt23','123123123','ycs@naver.com','1989-10-22','worker',10000,1);
+insert into employees values(employees_seq.nextval,'박수진','01022227777',sysdate,'psj23','123123123','psj@naver.com','1992-09-22','worker',10000,0);
+
+select * from employees;
+
+
+SELECT 
+employee_num num, 
+employee_name name,
+employee_hp hp, 
+employee_hire_date hiredate, 
+employee_id id, 
+employee_pw pw, 
+EMPLOYEE_EMAIL email, 
+employee_birth birth, 
+employee_position, 
+employee_hour_pay_rate hourPay, 
+to_char(employee_hire_date, 'yyyy') yy, 
+to_char(employee_hire_date, 'mm') mm, 
+to_char(employee_hire_date, 'dd') dd 
+FROM employees
+where employee_name = '유정은'
+
+order by 1;

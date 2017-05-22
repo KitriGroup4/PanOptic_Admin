@@ -1,0 +1,14 @@
+drop table user_blacklist;
+
+-- User_Black_List
+CREATE TABLE User_BlackList (
+	user_num INTEGER NOT NULL -- 회원번호
+);
+
+-- User_Black_List
+ALTER TABLE User_BlackList
+	ADD
+		CONSTRAINT PK_User_BlackList -- User_Black_List 기본키
+		PRIMARY KEY (
+			user_num -- 회원번호
+		);

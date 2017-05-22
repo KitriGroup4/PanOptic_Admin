@@ -1,0 +1,23 @@
+drop table food;
+drop sequence food_seq;
+CREATE SEQUENCE FOOD_SEQ
+INCREMENT BY 1 
+START WITH 0 
+MINVALUE 0;
+
+-- Food
+CREATE TABLE Food (
+	food_num      INTEGER     NOT NULL, -- 음식번호
+	food_name     VARCHAR(20) NOT NULL, -- 음식이름
+	food_type_num INTEGER     NULL,     -- 음식구분번호
+	food_left_num INTEGER     NOT NULL, -- 재고량
+	food_price    INTEGER     NOT NULL, -- 음식가격
+	food_order    VARCHAR(20) NOT NULL  -- 주문처
+);
+select * from food;
+insert into food values (food_seq.nextval, '라면', 0, 10, 2500, '오뚜기');
+insert into food values (food_seq.nextval, '햄버거', 0, 10, 2500, '오뚜기');
+insert into food values (food_seq.nextval, '핫도그', 1, 10, 2500, '오뚜기');
+insert into food values (food_seq.nextval, '부리또', 2, 10, 2500, '오뚜기');
+insert into food values (food_seq.nextval, '콜라', 1, 10, 2500, '오뚜기');
+select * from food;

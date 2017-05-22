@@ -1,0 +1,36 @@
+ public void setRowData() {
+   int size = order.beverages.size();
+   Main.log("setRowData : " + size);
+   rowDatas = new Vector<>();
+   Vector temp;
+   FoodDto foodTemp;
+   for (int i = 0; i < size; i++) {
+       foodTemp = order.beverages.get(i);
+       temp = new Vector<>();
+       temp.add(foodTemp.getFoodNum());
+       temp.add("tmp.jpg");
+       temp.add(foodTemp.getFoodName());
+       temp.add(foodTemp.getFoodPrice());
+       rowDatas.addElement(temp);
+
+   }
+
+   DefaultTableModel model = new DefaultTableModel(rowDatas, order.col) {
+       @Override
+       public boolean isCellEditable(int row, int column) {
+      return false;
+       }
+   };
+
+   table = new JTable(model);
+   table.getTableHeader().setReorderingAllowed(false);
+   table.getTableHeader().setResizingAllowed(false);
+
+   table.addMouseListener(order.mListener);
+   scrollPane = new JScrollPane(table);
+
+   Dimension d = table.getPreferredSize();
+   scrollPane.setPreferredSize(new Dimension(630, 500));
+   add(scrollPane);
+
+    }

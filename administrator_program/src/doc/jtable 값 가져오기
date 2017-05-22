@@ -1,0 +1,2 @@
+   selectedRow = order.BeveragePane.table.getSelectedRow();
+            sum += (int) order.BeveragePane.table.getValueAt(selectedRow, 2);

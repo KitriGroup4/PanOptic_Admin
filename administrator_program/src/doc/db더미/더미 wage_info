@@ -1,0 +1,10 @@
+drop table wage_info;
+drop sequence wage_info_seq;
+CREATE SEQUENCE WAGE_INFO_SEQ INCREMENT BY 1 START WITH 0 MINVALUE 0;
+
+-- Wage_Info
+CREATE TABLE Wage_Info (
+	wage_info_num    INTEGER NOT NULL, -- 직원번호
+	work_hour_total INTEGER NULL,     -- 총근무시간
+	work_wage_total INTEGER NULL      -- 급여합계
+);
