@@ -1,10 +1,12 @@
 package com.kitri.admin.main.managementPanel;
 
 public interface ManageService {
-	void viewRegEmp();
-	void viewWageInfo();
 	void updateWageJTable ();
+	void viewRegEmp();
+	void closeRegEmp();
+	void viewWageInfo();
 
 	void checkId (String id);
-	boolean isIdTfEmpty (String id);
+	void registerEmp ();
+	void searchWage (String str);
 }

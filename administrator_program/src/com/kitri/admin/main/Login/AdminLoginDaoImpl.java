@@ -12,7 +12,8 @@ public class AdminLoginDaoImpl extends Dao implements AdminLoginDao {
 
 	@Override
 	public boolean matchId(String id) {
-		boolean flag = false;
+//		false => 아이디가 존재 할 때 
+		boolean flag = true;
 		try {
 			System.out.println("여긴 오나?");
 			sql = "select employee_id id from employees \n";
@@ -23,12 +24,11 @@ public class AdminLoginDaoImpl extends Dao implements AdminLoginDao {
 			stmt = con.createStatement();
 			rs = stmt.executeQuery(sql);
 			if (rs.next()) {
-				flag = true;
-				System.out.println("트루");
-			}
-			else
 				flag = false;
-			System.out.println("false");
+				System.out.println("rs가 존재할 때");
+			} else
+				flag = true;
+			System.out.println(flag);
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
@@ -38,27 +38,29 @@ public class AdminLoginDaoImpl extends Dao implements AdminLoginDao {
 	}
 
 	@Override
-	public boolean matchPw(String id, String pw) {
-		boolean flag = false;
+	public boolean matchIdPw(String id, String pw) {
+//		false => id가 존재하고 pw가 일치 할 때
+		boolean flag = true;
 		String tempId = "";
-		String tempPw = "";
+		String tempPw = null;
 		try {
 			sql = "select employee_pw pw from employees \n";
-			sql += "where employee_id = '" + tempId + "'";
+			sql += "where employee_id = '" + id + "'";
 			System.out.println(sql);
-			
 			con = getConnection();
 			stmt = con.createStatement();
 			rs = stmt.executeQuery(sql);
-			if (rs.next()) {
+			if (rs.next()) 
 				tempPw = rs.getString("pw");
-				if (tempPw.equals(pw))
-					flag = true;
-				else
+			if (tempPw != null) {
+				if (tempPw.equals(pw)) {
 					flag = false;
+				} 
+				else {
+					flag = true;
+				}
 			}
-			else
-				flag = false;
+			System.out.println(flag);
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {

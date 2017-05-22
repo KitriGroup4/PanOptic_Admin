@@ -64,15 +64,65 @@ public class ManageDaoImpl extends Dao implements ManageDao {
 			// System.out.println("데이터베이스 연결 됨");
 			if (rs.next()) {
 				tempId = rs.getString("id");
-				count = 1; 
-			}
-			else 
+				count = 1;
+			} else
 				count = 0;
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
 			resetStmt();
-		}		
+		}
+		return count;
+	}
+
+	@Override
+	public int registerEmp() {
+		int count = 0;
+		String inId = manageMain.regEmp.idTf.getText().trim();
+		String name = manageMain.regEmp.nameTf.getText().trim();
+		String pw = manageMain.regEmp.pwTf.getText().trim();
+		String email = manageMain.regEmp.eMailTf.getText().trim();
+		String hourPay = manageMain.regEmp.hourPayTf.getText().trim();
+		String hp = manageMain.regEmp.hpTf.getText().trim();
+
+		String gender;
+		if (manageMain.regEmp.manCheck.getState())
+			gender = "1";
+		else
+			gender = "2";
+
+		String position = (String) manageMain.regEmp.position.getSelectedItem();
+		String birth = "" + manageMain.regEmp.yy.getSelectedItem() + manageMain.regEmp.mm.getSelectedItem()
+				+ manageMain.regEmp.dd.getSelectedItem();
+		String hireDate = "" + manageMain.regEmp.hireYear.getSelectedItem() + manageMain.regEmp.hireMonth.getSelectedItem()
+				+ manageMain.regEmp.hireDay.getSelectedItem();
+
+		try {
+			sql = "insert into employees values(employees_seq.nextval, \n";
+			sql += "'" + name + "', \n";
+			sql += "'" + hp + "', \n";
+			sql += "  sysdate  , \n";
+			sql += "'" + inId + "', \n";
+			sql += "'" + pw + "', \n";
+			sql += "'" + email + "', \n";
+			sql += "  sysdate  , \n";
+			sql += "'" + position + "', \n";
+			sql += "'" + hourPay + "', \n";
+			sql += "'" + gender + "') \n";
+			
+			System.out.println(sql);
+			con = getConnection();
+			stmt = con.createStatement();
+			count = stmt.executeUpdate(sql);
+			System.out.println("===== update sql =====");
+			if (count != 0)
+				count = 1;
+			System.out.println("update 되는지? " + count);
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			resetStmt();
+		}
 		return count;
 	}
 

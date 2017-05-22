@@ -1,6 +1,8 @@
 package com.kitri.admin.main.managementPanel;
 
 import java.awt.BorderLayout;
+import java.awt.Checkbox;
+import java.awt.CheckboxGroup;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -45,15 +47,17 @@ public class ManageEmpReg extends JFrame {
 	public JButton checkBtn;
 
 	public JComboBox position;
-	public JRadioButton manRadionBut;
-	public JRadioButton womanRadioBut;
 	
-	public JTextField empjoinTf;
-	public JTextField IdTf;
+	CheckboxGroup isMale;
+	Checkbox manCheck;
+	Checkbox womanCheck;
+	
+	public JTextField empJoinTf;
+	public JTextField idTf;
 	public JTextField nameTf;
 	public JTextField eMailTf;
+	public JTextField hourPayTf;
 	public JTextField hpTf;
-	public JTextField phoneTf;
 	public JPasswordField pwTf;
 	public JPasswordField pwCheckTf;
 	
@@ -81,13 +85,13 @@ public class ManageEmpReg extends JFrame {
 		backgroundPanel.setBounds(0, 0, 478, 545);
 		contentPane.add(backgroundPanel);
 		
-		empjoinTf = new JTextField();
-		empjoinTf.setText("직원등록");
-		empjoinTf.setHorizontalAlignment(SwingConstants.CENTER);
-		empjoinTf.setEditable(false);
-		empjoinTf.setColumns(10);
-		empjoinTf.setBounds(17, 25, 444, 50);
-		backgroundPanel.add(empjoinTf);
+		empJoinTf = new JTextField();
+		empJoinTf.setText("직원등록");
+		empJoinTf.setHorizontalAlignment(SwingConstants.CENTER);
+		empJoinTf.setEditable(false);
+		empJoinTf.setColumns(10);
+		empJoinTf.setBounds(17, 25, 444, 50);
+		backgroundPanel.add(empJoinTf);
 		
 		joinBasicPanel = new JPanel();
 		joinBasicPanel.setBounds(17, 116, 91, 245);
@@ -128,9 +132,9 @@ public class ManageEmpReg extends JFrame {
 		backgroundPanel.add(joinBasicTfPanel);
 		joinBasicTfPanel.setLayout(new GridLayout(6, 0, 5, 5));
 		
-		IdTf = new JTextField();
-		IdTf.setColumns(10);
-		joinBasicTfPanel.add(IdTf);
+		idTf = new JTextField();
+		idTf.setColumns(10);
+		joinBasicTfPanel.add(idTf);
 		
 		nameTf = new JTextField();
 		nameTf.setColumns(10);
@@ -182,11 +186,11 @@ public class ManageEmpReg extends JFrame {
 		RadionButPanel.setBounds(356, 324, 105, 43);
 		backgroundPanel.add(RadionButPanel);
 		
-		manRadionBut = new JRadioButton("\uB0A8");
-		RadionButPanel.add(manRadionBut);
-		
-		womanRadioBut = new JRadioButton("\uC5EC");
-		RadionButPanel.add(womanRadioBut);
+		isMale = new CheckboxGroup();
+		manCheck = new Checkbox("남자", isMale, true);
+		womanCheck = new Checkbox("여자", isMale, false);
+		RadionButPanel.add(manCheck);
+		RadionButPanel.add(womanCheck);
 		
 		infoLabel = new JLabel("\uAE30\uBCF8\uC815\uBCF4");
 		infoLabel.setHorizontalAlignment(SwingConstants.LEFT);
@@ -208,10 +212,10 @@ public class ManageEmpReg extends JFrame {
 		eMailTf.setColumns(10);
 		subInfoTfPanel.add(eMailTf);
 		
-		hpTf = new JTextField();
-		hpTf.setHorizontalAlignment(SwingConstants.LEFT);
-		hpTf.setColumns(10);
-		subInfoTfPanel.add(hpTf);
+		hourPayTf = new JTextField();
+		hourPayTf.setHorizontalAlignment(SwingConstants.LEFT);
+		hourPayTf.setColumns(10);
+		subInfoTfPanel.add(hourPayTf);
 		
 		subInfoCbTfPanel2 = new JPanel();
 		subInfoCbTfPanel2.setBounds(291, 404, 170, 74);
@@ -223,9 +227,9 @@ public class ManageEmpReg extends JFrame {
 		position.addItem("관리자");
 		position.addItem("직원");
 		
-		phoneTf = new JTextField();
-		phoneTf.setColumns(10);
-		subInfoCbTfPanel2.add(phoneTf);
+		hpTf = new JTextField();
+		hpTf.setColumns(10);
+		subInfoCbTfPanel2.add(hpTf);
 		
 		subInfoLabelPanel2 = new JPanel();
 		subInfoLabelPanel2.setBounds(239, 404, 61, 74);

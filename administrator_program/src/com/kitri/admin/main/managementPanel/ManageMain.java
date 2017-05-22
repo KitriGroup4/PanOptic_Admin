@@ -10,8 +10,9 @@ import javax.swing.JButton;
 
 public class ManageMain extends JPanel {
 
-	JButton wageManBtn;
+	JButton wageInfoBtn;
 	JButton regEmpBtn;
+	JButton revenueBtn;
 	
 	ManageCon control;
 	ManageEmpReg regEmp;
@@ -24,18 +25,19 @@ public class ManageMain extends JPanel {
 
 		setLayout(new GridLayout(10, 1, 0, 0));
 
-		wageManBtn = new JButton("\uAE09\uC5EC\uAD00\uB9AC");
-		add(wageManBtn);
+		wageInfoBtn = new JButton("급여정보");
+		add(wageInfoBtn);
 
 		regEmpBtn = new JButton("\uC9C1\uC6D0\uB4F1\uB85D");
 		add(regEmpBtn);
 
-		JButton assetManagement = new JButton("\uC790\uC0B0\uAD00\uB9AC");
-		add(assetManagement);
+		revenueBtn = new JButton("\uC790\uC0B0\uAD00\uB9AC");
+		add(revenueBtn);
 
 //		manage event
-		wageManBtn.addActionListener(control);
+		wageInfoBtn.addActionListener(control);
 		regEmpBtn.addActionListener(control);
+		revenueBtn.addActionListener(control);
 		
 //		regEmp event
 		regEmp.checkBtn.addActionListener(control);

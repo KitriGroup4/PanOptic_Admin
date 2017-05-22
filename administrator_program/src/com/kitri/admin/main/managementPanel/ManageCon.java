@@ -17,22 +17,21 @@ public class ManageCon implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		String id = manageMain.regEmp.IdTf.getText().trim();
+		String id = manageMain.regEmp.idTf.getText().trim();
 		Object ob = e.getSource();
 		if (ob == manageMain.regEmpBtn) {
 			service.viewRegEmp ();
-		} else if (ob == manageMain.wageManBtn) {
+		} else if (ob == manageMain.wageInfoBtn) {
 			service.viewWageInfo();
 		} else if (ob == manageMain.regEmp.checkBtn) {
 			service.checkId(id);
 		} else if (ob == manageMain.regEmp.closeBtn) {
-
+			service.closeRegEmp();
 		} else if (ob == manageMain.regEmp.joinBtn) {
+			service.registerEmp ();
+		} else if (ob == manageMain.wageInfo.searchBtn || ob == manageMain.wageInfo.searchTf) {
+			service.searchWage (manageMain.wageInfo.searchTf.getText().trim());
 
-		} else if (ob == manageMain.wageInfo.searchBtn) {
-
-		} else if (ob == manageMain.wageInfo.searchTf) {
-
-		}
+		} 
 	}
 }

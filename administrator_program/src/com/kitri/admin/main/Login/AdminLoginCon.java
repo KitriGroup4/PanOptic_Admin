@@ -12,11 +12,10 @@ public class AdminLoginCon implements ActionListener {
 
 	public AdminLoginCon(AdminLogin login) {
 		this.login = login;
-		service = new AdminLoginServiceImpl();
+		service = new AdminLoginServiceImpl(login);
 	}
 
 	public void actionPerformed(ActionEvent e) {
-		login.pcMain.setVisible(true);
-//		service.existEmp (login.idTf.getText().trim(), login.pwTf.getText().trim());
+		service.loginProcess();
 	}
 }
