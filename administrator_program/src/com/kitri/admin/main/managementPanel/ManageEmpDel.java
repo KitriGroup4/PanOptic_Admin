@@ -1,16 +1,16 @@
 package com.kitri.admin.main.managementPanel;
 
 import java.awt.BorderLayout;
-import java.awt.EventQueue;
-
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
 import java.awt.GridLayout;
-import javax.swing.JLabel;
+
 import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JInternalFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
+import javax.swing.border.EmptyBorder;
 
 public class ManageEmpDel extends JInternalFrame {
 
@@ -76,7 +76,7 @@ public class ManageEmpDel extends JInternalFrame {
 		
 		setVisible(true);
 		setResizable(false);
-		setLocationRelativeTo(null);
+		setLocation(null);
 	}
 	public static void main(String[] args) {
 		new ManageEmpDel();

@@ -1,18 +1,16 @@
 package com.kitri.admin.main.controlPanel;
 
 import java.awt.BorderLayout;
-import java.awt.EventQueue;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JInternalFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
 import com.kitri.admin.main.fixCon.Fix;
-
-import javax.swing.JLabel;
-import javax.swing.JTextField;
 
 public class ControlDelBlockedSite extends JInternalFrame {
 	JPanel contentPane;

@@ -1,21 +1,19 @@
 package com.kitri.admin.main.managementPanel;
 
-import java.awt.BorderLayout;
 import java.awt.Checkbox;
 import java.awt.CheckboxGroup;
-import java.awt.EventQueue;
+import java.awt.GridLayout;
 
+import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
+import javax.swing.JInternalFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
+import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
-import javax.swing.JButton;
-import java.awt.GridLayout;
-import javax.swing.JLabel;
-import javax.swing.JRadioButton;
-import javax.swing.JComboBox;
-import javax.swing.JPasswordField;
+import javax.swing.border.EmptyBorder;
 
 public class ManageEmpReg extends JInternalFrame {
 
@@ -268,7 +266,7 @@ public class ManageEmpReg extends JInternalFrame {
 		joinBtn.setBounds(194, 496, 125, 34);
 		backgroundPanel.add(joinBtn);
 		
-		this.setLocationRelativeTo(null);
+		this.setLocation(null);
 	}
 
 	private void addComboBoxItems(JComboBox box, int start, int end) {

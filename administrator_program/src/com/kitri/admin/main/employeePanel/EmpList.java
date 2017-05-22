@@ -1,6 +1,8 @@
 package com.kitri.admin.main.employeePanel;
 
-import java.awt.*;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.SystemColor;
 import java.util.Vector;
 
 import javax.swing.*;
@@ -68,16 +70,12 @@ public class EmpList extends JInternalFrame {
 		jScollPane = new JScrollPane(jTable);
 		
 		panel.add(jScollPane);
-		setResizable(false);
-		setLocationRelativeTo(null);
 		
 		detail = new JButton("ÀÚ¼¼È÷");
 		detail.setBounds(510, 540, 100, 30);
 		contentPane.add(detail);
 		
-	
-		
 		setResizable(false);
-		setLocationRelativeTo(null);
+		setLocation(null);
 	}
 }
