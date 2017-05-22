@@ -7,7 +7,7 @@ import javax.swing.border.EmptyBorder;
 
 import java.awt.Color;
 
-public class CusBlacklist extends JFrame {
+public class CusBlacklist extends JInternalFrame {
 
 	private JPanel contentPane;
 	private JTextField textField;

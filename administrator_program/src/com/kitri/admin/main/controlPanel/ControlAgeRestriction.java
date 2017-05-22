@@ -12,7 +12,7 @@ import javax.swing.SwingConstants;
 import java.awt.Font;
 import javax.swing.JButton;
 
-public class ControlAgeRestriction extends JFrame {
+public class ControlAgeRestriction extends JInternalFrame {
 
 	private JPanel contentPane;
 

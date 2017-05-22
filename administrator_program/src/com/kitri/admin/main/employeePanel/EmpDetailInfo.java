@@ -19,7 +19,7 @@ import javax.swing.JComboBox;
 import java.awt.FlowLayout;
 import java.awt.Component;
 
-public class EmpDetailInfo extends JFrame {
+public class EmpDetailInfo extends JInternalFrame {
 
 	private JPanel contentPane;
 	private JPanel joinInfoLabelPanel;

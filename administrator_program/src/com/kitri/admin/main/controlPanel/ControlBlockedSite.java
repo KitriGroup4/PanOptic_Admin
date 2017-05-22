@@ -20,7 +20,7 @@ import javax.swing.table.DefaultTableModel;
 
 import com.kitri.admin.main.fixCon.Fix;
 
-public class ControlBlockedSite extends JFrame {
+public class ControlBlockedSite extends JInternalFrame {
 	public JPanel contentPane;
 	public DefaultTableModel model;
 	public JTable jTable;

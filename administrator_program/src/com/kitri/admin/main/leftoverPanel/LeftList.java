@@ -13,7 +13,7 @@ import javax.swing.table.TableColumnModel;
 
 import java.awt.Color;
 
-public class LeftList extends JFrame {
+public class LeftList extends JInternalFrame {
 
 	private JPanel contentPane;
 	public JTextField searchTf;

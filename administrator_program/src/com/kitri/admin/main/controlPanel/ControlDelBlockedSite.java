@@ -5,6 +5,7 @@ import java.awt.EventQueue;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JInternalFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
@@ -13,7 +14,7 @@ import com.kitri.admin.main.fixCon.Fix;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 
-public class ControlDelBlockedSite extends JFrame {
+public class ControlDelBlockedSite extends JInternalFrame {
 	JPanel contentPane;
 	JTextField siteNameTF;
 	JButton ok;

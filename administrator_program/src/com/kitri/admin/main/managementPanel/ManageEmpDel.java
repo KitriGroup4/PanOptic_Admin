@@ -12,7 +12,7 @@ import javax.swing.JButton;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
-public class ManageEmpDel extends JFrame {
+public class ManageEmpDel extends JInternalFrame {
 
 	private JPanel contentPane;
 	private JTextField idTf;

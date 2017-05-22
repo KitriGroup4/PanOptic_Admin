@@ -16,7 +16,7 @@ import javax.swing.table.*;
 import java.awt.GridLayout;
 import java.io.ObjectStreamConstants;
 
-public class Calculate extends JFrame {
+public class Calculate extends JInternalFrame {
 	
 	private JPanel backGroundPanel;
 	private JPanel datePanel;
@@ -44,25 +44,6 @@ public class Calculate extends JFrame {
 	JTable jTable = new JTable(rowData, columnNames);
 	JScrollPane calculatejScollPane = new JScrollPane(jTable);
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					Calculate frame = new Calculate();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
-	/**
-	 * Create the frame.
-	 */
 	public Calculate() {
 		jTable.setEnabled(false);
 

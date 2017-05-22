@@ -17,7 +17,7 @@ import javax.swing.JRadioButton;
 import javax.swing.JComboBox;
 import javax.swing.JPasswordField;
 
-public class ManageEmpReg extends JFrame {
+public class ManageEmpReg extends JInternalFrame {
 
 	private JPanel contentPane;
 	public JPanel RadionButPanel;
@@ -72,6 +72,7 @@ public class ManageEmpReg extends JFrame {
 	public JComboBox dd;
 	
 	public ManageEmpReg() {
+		
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 500, 600);
 		contentPane = new JPanel();

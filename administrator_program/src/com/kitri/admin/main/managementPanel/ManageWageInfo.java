@@ -10,7 +10,7 @@ import javax.swing.table.*;
 
 import java.awt.Color;
 
-public class ManageWageInfo extends JFrame {
+public class ManageWageInfo extends JInternalFrame {
 
 	private JPanel contentPane;
 	private JPanel backgroundPanel;
