@@ -1,28 +1,48 @@
 package com.kitri.admin.main;
 
-import javax.swing.*;
+import java.awt.BorderLayout;
+import java.awt.CardLayout;
+import java.awt.GraphicsDevice;
+import java.awt.GraphicsEnvironment;
+import java.awt.GridLayout;
+import java.awt.Panel;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTextArea;
+import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
+import com.kitri.admin.main.controlPanel.ControlAgeRestriction;
+import com.kitri.admin.main.controlPanel.ControlBlockedSite;
+import com.kitri.admin.main.controlPanel.ControlDelBlockedSite;
 import com.kitri.admin.main.controlPanel.ControlMain;
+import com.kitri.admin.main.controlPanel.ControlRegBlockedSite;
+import com.kitri.admin.main.customerPanel.CusBlacklist;
+import com.kitri.admin.main.customerPanel.CusList;
 import com.kitri.admin.main.customerPanel.CusMain;
+import com.kitri.admin.main.employeePanel.EmpDetailInfo;
+import com.kitri.admin.main.employeePanel.EmpList;
 import com.kitri.admin.main.employeePanel.EmpMain;
-//import com.kitri.admin.main.customerPanel.CusMain;
-//import com.kitri.admin.main.employeePanel.EmpMain;
-import com.kitri.admin.main.fixCon.Fix;
+import com.kitri.admin.main.leftoverPanel.LeftList;
 import com.kitri.admin.main.leftoverPanel.LeftMain;
+import com.kitri.admin.main.managementPanel.ManageEmpDel;
+import com.kitri.admin.main.managementPanel.ManageEmpReg;
 import com.kitri.admin.main.managementPanel.ManageMain;
+import com.kitri.admin.main.managementPanel.ManageWageInfo;
 import com.kitri.admin.main.statPanel.StatMain;
 //import com.kitri.admin.main.leftoverPanel.LeftMain;
 //import com.kitri.admin.main.managementPanel.ManageMain;
 //import com.kitri.admin.main.statPanel.StatMain;
 //import com.kitri.admin.main.storePanel.StoreMain;
 import com.kitri.admin.main.storePanel.StoreMain;
+import com.kitri.admin.main.storePanel.StoreSettle;
 import com.kitri.admin.server.ServerThread;
-
-import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.util.ArrayList;
 
 public class PcMain extends JFrame {
 
@@ -63,8 +83,38 @@ public class PcMain extends JFrame {
 	public ArrayList<String> leftTimes;
 	////////////////////////////////////////////////////////////
 
+	// JinternalFrame 객체 생성
+	public ControlAgeRestriction ageRestriction;
+	public ControlBlockedSite blockedSite;
+	public ControlDelBlockedSite delBlockedSite;
+	public ControlRegBlockedSite regBlockedSite;
+	public CusBlacklist blackList;
+	public CusList cusList;
+	public EmpDetailInfo empDetailInfo;
+	public EmpList empList;
+	public LeftList leftList;
+	public ManageEmpDel delEmp;
+	public ManageEmpReg regEmp;
+	public ManageWageInfo wageInfo;
+	public StoreSettle settle;
+
 	public PcMain(ServerThread server) {
 		this.server = server;
+
+		ageRestriction = new ControlAgeRestriction();
+		blockedSite = new ControlBlockedSite();
+		delBlockedSite = new ControlDelBlockedSite();
+		regBlockedSite = new ControlRegBlockedSite();
+		blackList = new CusBlacklist();
+		cusList = new CusList();
+		empDetailInfo = new EmpDetailInfo();
+		empList = new EmpList();
+		leftList = new LeftList();
+		delEmp = new ManageEmpDel();
+		regEmp = new ManageEmpReg();
+		wageInfo = new ManageWageInfo();
+		settle = new StoreSettle();
+
 		comInfos = new ArrayList<>();
 		userTimes = new ArrayList<>();
 		leftTimes = new ArrayList<>();
@@ -78,6 +128,20 @@ public class PcMain extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(new BorderLayout(20, 20));
+
+		contentPane.add(ageRestriction);
+		contentPane.add(blockedSite);
+		contentPane.add(delBlockedSite);
+		contentPane.add(regBlockedSite);
+		contentPane.add(blackList);
+		contentPane.add(cusList);
+		contentPane.add(empDetailInfo);
+		contentPane.add(empList);
+		contentPane.add(leftList);
+		contentPane.add(delEmp);
+		contentPane.add(regEmp);
+		contentPane.add(wageInfo);
+		contentPane.add(settle);
 
 		// 센터 pc 자리 채우기
 		for (int i = 0; i < comNum; i++) {
@@ -130,8 +194,8 @@ public class PcMain extends JFrame {
 
 		GraphicsEnvironment environment = GraphicsEnvironment.getLocalGraphicsEnvironment();
 		GraphicsDevice device = environment.getDefaultScreenDevice();
-//		this.setUndecorated(true);
-//		device.setFullScreenWindow(this);
+		// this.setUndecorated(true);
+		// device.setFullScreenWindow(this);
 
 		cardPanel.add(storeJPanel, topMenuTitle[0]);
 		cardPanel.add(customerJPanel, topMenuTitle[1]);

@@ -76,7 +76,7 @@ public class ManageEmpDel extends JInternalFrame {
 		
 		setVisible(true);
 		setResizable(false);
-		setLocation(null);
+//		setLocation(null);
 	}
 	public static void main(String[] args) {
 		new ManageEmpDel();

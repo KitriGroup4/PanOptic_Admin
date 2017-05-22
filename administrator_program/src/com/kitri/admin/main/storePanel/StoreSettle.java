@@ -16,7 +16,7 @@ import javax.swing.table.*;
 import java.awt.GridLayout;
 import java.io.ObjectStreamConstants;
 
-public class Calculate extends JInternalFrame {
+public class StoreSettle extends JInternalFrame {
 	
 	private JPanel backGroundPanel;
 	private JPanel datePanel;
@@ -44,7 +44,7 @@ public class Calculate extends JInternalFrame {
 	JTable jTable = new JTable(rowData, columnNames);
 	JScrollPane calculatejScollPane = new JScrollPane(jTable);
 
-	public Calculate() {
+	public StoreSettle() {
 		jTable.setEnabled(false);
 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
