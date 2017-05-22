@@ -26,8 +26,9 @@ public class AdminLogin extends JFrame {
 	PcMain pcMain;
 	AdminLoginCon control;
 	
-	public AdminLogin() {
-		pcMain = new PcMain(null); //////////////////////////////////////////////////////////////////////////////////////////
+	public AdminLogin(PcMain pcMain) {
+	    this.pcMain = pcMain;
+//		pcMain = new PcMain(null);
 		control = new AdminLoginCon(this);
 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -64,13 +65,15 @@ public class AdminLogin extends JFrame {
 		Fix.FIXFRAME(this);
 //		login 이베트 등록
 		loginBtn.addActionListener(control);
+		idTf.addActionListener(control);
+		pwTf.addActionListener(control);
 	}
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					AdminLogin frame = new AdminLogin();
+					AdminLogin frame = new AdminLogin(null);
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();

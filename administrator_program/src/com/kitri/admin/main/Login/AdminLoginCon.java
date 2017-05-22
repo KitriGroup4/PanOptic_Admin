@@ -16,6 +16,9 @@ public class AdminLoginCon implements ActionListener {
 	}
 
 	public void actionPerformed(ActionEvent e) {
-		service.loginProcess();
+//		Object ob = e.getSource();
+//		if (ob == login.loginBtn || ob == login.idTf || ob == login.pwTf )
+//			service.loginProcess();
+		login.pcMain.setVisible(true);
 	}
 }

@@ -10,6 +10,7 @@ import java.util.*;
 import java.util.Map.Entry;
 
 import com.kitri.admin.main.PcMain;
+import com.kitri.admin.main.Login.AdminLogin;
 
 public class ServerThread extends Thread {
 
@@ -18,11 +19,13 @@ public class ServerThread extends Thread {
     public static int handlerCount;
     public static boolean isChangeClientList;
     public PcMain pcMain;
+    public AdminLogin adminLogin;
 
     public ServerThread(Abortable abortable) {
 	this.abortable = abortable;
 	handlerCount = 1;
 	pcMain = new PcMain(this);
+	adminLogin = new AdminLogin(pcMain);
 	pcMain.setVisible(true);
 
     }
