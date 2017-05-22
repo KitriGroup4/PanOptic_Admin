@@ -9,6 +9,7 @@ import com.kitri.admin.database.dto.ComDto;
 public class ComDao extends Dao {
     // private Dao dao;
 
+	
     public ComDao() {
 
     }
