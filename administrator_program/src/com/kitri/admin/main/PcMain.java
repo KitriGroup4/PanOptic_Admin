@@ -17,6 +17,7 @@ import com.kitri.admin.main.statPanel.StatMain;
 //import com.kitri.admin.main.statPanel.StatMain;
 //import com.kitri.admin.main.storePanel.StoreMain;
 import com.kitri.admin.main.storePanel.StoreMain;
+import com.kitri.admin.messenger.Messenger;
 import com.kitri.admin.server.ServerThread;
 
 import java.awt.*;
@@ -43,6 +44,7 @@ public class PcMain extends JFrame {
 
     JLabel lblNewLabel = new JLabel("PAN-OPTIC");
     public ArrayList<ComInfo> comInfos;
+    public ArrayList<Messenger> messengers;
     public ArrayList<JTextArea> coms;
 //    public JTextArea buttonCenter[] = new JTextArea[comNum];
     public PcMainController controller;
@@ -69,6 +71,8 @@ public class PcMain extends JFrame {
 	userTimes = new ArrayList<>();
 	leftTimes = new ArrayList<>();
 	detailViews = new ArrayList<>();
+	messengers = new ArrayList<>();
+	
 	coms = new ArrayList<>();
 	controller = new PcMainController(this);
 	
@@ -80,10 +84,15 @@ public class PcMain extends JFrame {
 	contentPane.setLayout(new BorderLayout(20, 20));
 
 	// 센터 pc 자리 채우기
-	for(int i = 0; i < comNum; i++){
+
+
+	detailViews.add(new ComDetailView(this, 0));
+	userTimes.add("");
+	leftTimes.add("");
+	for(int i = 1; i <= comNum; i++){
 	    userTimes.add("");
 	    leftTimes.add("");
-	    detailViews.add(new ComDetailView(this));
+	    detailViews.add(new ComDetailView(this, i));
 	    contentPane.add(detailViews.get(i));
 	}
 //	contentPane.add(detailView);
@@ -110,6 +119,7 @@ public class PcMain extends JFrame {
 	    JLabel LabelCenter = new JLabel(i + "");
 	    center.add(LabelCenter);
 	}
+	
 
 	contentPane.add(cardPanel, BorderLayout.WEST);
 	cardPanel.setLayout(new GridLayout(1, 1, 0, 0));

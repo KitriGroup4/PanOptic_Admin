@@ -17,6 +17,8 @@ public class ComDetailViewController implements ActionListener {
 	
 	if(o == view.closeButton){
 	    view.setVisible(false);
+	} else if(o == view.messengerButton) {
+	    view.messenger.setVisible(true);
 	}
 	
     }

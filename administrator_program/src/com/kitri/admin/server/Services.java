@@ -179,11 +179,14 @@ public class Services {
 
 	if (comUseDao.update(comUseNum)) {
 	    Main.log("endUsingCom Success !!");
-
-	    clientHandlerThread.serverThread.pcMain.comInfos.get(comNum).name = "";
-	    clientHandlerThread.serverThread.pcMain.comInfos.get(comNum).useTime = "";
-	    clientHandlerThread.serverThread.pcMain.coms.get(comNum).setText(clientHandlerThread.serverThread.pcMain.comInfos.get(comNum).toString());
-	    clientHandlerThread.serverThread.pcMain.coms.get(comNum).setForeground(Color.BLACK);
+	    PcMain pcMain = clientHandlerThread.serverThread.pcMain;
+	    pcMain.comInfos.get(comNum).name = "";
+	    pcMain.comInfos.get(comNum).useTime = "";
+	    pcMain.coms.get(comNum).setText(clientHandlerThread.serverThread.pcMain.comInfos.get(comNum).toString());
+	    pcMain.coms.get(comNum).setForeground(Color.BLACK);
+	    pcMain.detailViews.get(comNum).messenger.messageBuffer = new StringBuilder("");
+	    pcMain.detailViews.get(comNum).messenger.msgtextArea.setText("");
+	    pcMain.detailViews.get(comNum).messenger.setVisible(false);
 	    return true;
 	} else {
 	    Main.log("endUsingCom Fail TTTT");

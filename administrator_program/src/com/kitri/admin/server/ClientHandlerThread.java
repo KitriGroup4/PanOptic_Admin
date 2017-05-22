@@ -19,6 +19,7 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 
 import com.kitri.admin.database.dto.UserInfoDto;
+import com.kitri.admin.main.PcMain;
 import com.kitri.admin.server.PacketInformation.ProgramValue;
 
 public class ClientHandlerThread extends Thread {
@@ -249,12 +250,27 @@ public class ClientHandlerThread extends Thread {
 	    logoutRequest(packetType);
 //	    services.logoutUser();
 	    break;
+	case PacketInformation.Operation.MESSAGE:
+	    messageRequest(packetType);
+	    break;
 	case PacketInformation.IDLE:
 	    idleRequest(packetType);
 	    break;
 
 	default:
 	}
+    }
+    
+    private void messageRequest(int packetType){
+	String data = dataPacket[PacketInformation.PacketStructrue.DATA];
+	
+	switch(packetType){
+	case PacketInformation.PacketType.USER_MSG:
+	    serverThread.pcMain.detailViews.get(index).messenger.listener.setChatArea(data, PacketInformation.PacketType.USER_MSG);
+	    serverThread.pcMain.detailViews.get(index).messenger.setVisible(true);
+	    break;
+	}
+	
     }
     
     private void timerRequest(int packetType){

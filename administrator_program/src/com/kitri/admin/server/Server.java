@@ -28,7 +28,7 @@ public class Server // extends JFrame
     public static final int PORT_NUMBER = 9831;
 
     private Abortable abortable;
-    private ServerThread serverThread;
+    public static ServerThread serverThread;
     // private static JTextArea mLogView;
 
     /**

@@ -6,6 +6,8 @@ import java.awt.EventQueue;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 
+import com.kitri.admin.messenger.Messenger;
+
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -28,6 +30,9 @@ public class ComDetailView extends JInternalFrame {
     public ComDetailViewController controller;
     public JTextArea comViewUseProgramTA;
     private JScrollPane scrollPane;
+    public JButton messengerButton;
+    public int index;
+    public Messenger messenger;
 
     /**
      * Launch the application.
@@ -36,7 +41,7 @@ public class ComDetailView extends JInternalFrame {
 	EventQueue.invokeLater(new Runnable() {
 	    public void run() {
 		try {
-		    ComDetailView frame = new ComDetailView(null);
+		    ComDetailView frame = new ComDetailView(null, 0);
 		    frame.setVisible(true);
 		} catch (Exception e) {
 		    e.printStackTrace();
@@ -48,8 +53,10 @@ public class ComDetailView extends JInternalFrame {
     /**
      * Create the frame.
      */
-    public ComDetailView(PcMain pcMain) {
+    public ComDetailView(PcMain pcMain, int index) {
+	this.index = index;
 	this.pcMain = pcMain;
+	messenger = new Messenger(this);
 	controller = new ComDetailViewController(this);
 
 	setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -109,16 +116,23 @@ public class ComDetailView extends JInternalFrame {
 	closeButton = new JButton("\uB2EB\uAE30");
 	closeButton.setBounds(209, 292, 97, 23);
 	contentPane.add(closeButton);
-	scrollPane = new JScrollPane();
+	
+	comViewUseProgramTA = new JTextArea();
+	contentPane.add(comViewUseProgramTA);
+	comViewUseProgramTA.setBounds(25, 194, 279, 61);
+	comViewUseProgramTA.setEditable(false);
+	scrollPane = new JScrollPane(comViewUseProgramTA);
 	scrollPane.setBounds(25, 194, 281, 88);
 	contentPane.add(scrollPane);
 	
+	messengerButton = new JButton("\uBA54\uC2E0\uC800");
+	messengerButton.setBounds(100, 292, 97, 23);
+	contentPane.add(messengerButton);
 	
-		comViewUseProgramTA = new JTextArea();
-		contentPane.add(comViewUseProgramTA);
-		comViewUseProgramTA.setBounds(25, 194, 279, 61);
-		comViewUseProgramTA.setEditable(false);
 
+	pcMain.contentPane.add(messenger);
+
+	messengerButton.addActionListener(controller);
 	closeButton.addActionListener(controller);
 
     }
