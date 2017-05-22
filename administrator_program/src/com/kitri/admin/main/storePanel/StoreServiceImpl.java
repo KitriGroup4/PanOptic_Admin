@@ -66,7 +66,7 @@ public class StoreServiceImpl implements StoreService {
 
 	@Override
 	public void updateSettleInfo(String name) {
-
+		
 	}
 
 	private void insertColumnNames() {
