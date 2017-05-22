@@ -1,10 +1,17 @@
 package com.kitri.admin.main.controlPanel;
 
 import java.awt.BorderLayout;
+import java.awt.Dimension;
+import java.awt.EventQueue;
+import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.List;
+import java.util.ArrayList;
 import java.util.Vector;
 
 import javax.swing.JButton;
-import javax.swing.JInternalFrame;
+import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -13,7 +20,7 @@ import javax.swing.table.DefaultTableModel;
 
 import com.kitri.admin.main.fixCon.Fix;
 
-public class ControlBlockedSite extends JInternalFrame {
+public class ControlBlockedSite extends JFrame {
 	public JPanel contentPane;
 	public DefaultTableModel model;
 	public JTable jTable;

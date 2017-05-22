@@ -1,4 +1,4 @@
-package com.kitri.admin.main.customerPanel;
+package com.kitri.admin.main.employeePanel;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;

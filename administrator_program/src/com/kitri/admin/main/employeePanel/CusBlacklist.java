@@ -1,4 +1,4 @@
-package com.kitri.admin.main.customerPanel;
+package com.kitri.admin.main.employeePanel;
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
 

@@ -1,4 +1,4 @@
-package com.kitri.admin.main.managementPanel;
+package com.kitri.admin.main.Login;
 
 import java.awt.BorderLayout;
 import java.awt.Checkbox;

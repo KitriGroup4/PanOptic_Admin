@@ -2,22 +2,30 @@ package com.kitri.admin.main.storePanel;
 
 import javax.swing.JPanel;
 import java.awt.GridLayout;
+import java.util.Vector;
+
 import javax.swing.JButton;
 
 public class StoreMain extends JPanel {
-
-	/**
-	 * Create the panel.
-	 */
+	JButton settleBtn;
+	StoreCon control;
+	
+	public StoreSettleAccount settleAccount;
+		
 	public StoreMain() {
+		
+		settleAccount = new StoreSettleAccount();
+		control = new StoreCon(this);
+		
 		setLayout(new GridLayout(10, 1, 0, 0));
+		settleBtn = new JButton("정산");
+		add(settleBtn);
 		
-		JButton btnNewButton_1 = new JButton("\uB9E4\uCD9C");
-		add(btnNewButton_1);
+//		store 이벤트
+		settleBtn.addActionListener(control);
 		
-		JButton btnNewButton = new JButton("\uC815\uC0B0");
-		add(btnNewButton);
-		
+//		settle 이벤트
+		settleAccount.searchBtn.addActionListener(control);
 	}
 
 }
