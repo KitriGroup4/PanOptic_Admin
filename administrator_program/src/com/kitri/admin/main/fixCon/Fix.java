@@ -11,9 +11,9 @@ public class Fix {
 		this.f = f;
 	}
 	
-	public static void FIXFRAME (JInternalFrame f) {
+	public static void FIXFRAME (JFrame f) {
 		f.setResizable(false);
-//		f.setLocation();
+		f.setLocationRelativeTo(null);
 	}
 	
 }
