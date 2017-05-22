@@ -266,7 +266,7 @@ public class ManageEmpReg extends JInternalFrame {
 		joinBtn.setBounds(194, 496, 125, 34);
 		backgroundPanel.add(joinBtn);
 		
-		this.setLocation(null);
+//		this.setLocation(null);
 	}
 
 	private void addComboBoxItems(JComboBox box, int start, int end) {

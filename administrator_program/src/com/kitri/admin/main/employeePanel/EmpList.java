@@ -76,6 +76,6 @@ public class EmpList extends JInternalFrame {
 		contentPane.add(detail);
 		
 		setResizable(false);
-		setLocation(null);
+//		setLocation(null);
 	}
 }

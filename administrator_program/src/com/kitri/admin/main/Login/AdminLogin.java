@@ -4,7 +4,6 @@ import java.awt.EventQueue;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
@@ -14,7 +13,7 @@ import javax.swing.border.EmptyBorder;
 import com.kitri.admin.main.PcMain;
 import com.kitri.admin.main.fixCon.Fix;
 
-public class AdminLogin extends JInternalFrame {
+public class AdminLogin extends JFrame {
 	public JPanel contentPane;
 	public JTextField idTf;
 	public JTextField pwTf;
@@ -58,7 +57,9 @@ public class AdminLogin extends JInternalFrame {
 		loginBtn.setBounds(91, 184, 89, 34);
 		contentPane.add(loginBtn);
 
-		Fix.FIXFRAME(this);
+		setLocationRelativeTo(null);
+		
+//		Fix.FIXFRAME(this);
 //		login 이베트 등록
 		loginBtn.addActionListener(control);
 	}

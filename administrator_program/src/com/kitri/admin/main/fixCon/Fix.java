@@ -13,7 +13,7 @@ public class Fix {
 	
 	public static void FIXFRAME (JInternalFrame f) {
 		f.setResizable(false);
-		f.setLocation(null);
+//		f.setLocation();
 	}
 	
 }

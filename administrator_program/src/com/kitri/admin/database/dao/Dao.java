@@ -6,8 +6,13 @@ public class Dao {
     public final String url = "jdbc:oracle:thin:@localhost:1521:xe";
 //    public final String uid = "pc_manager";
 //    public final String upw = "pc_manager";
-    public final String uid = "test";
-    public final String upw = "test";
+    
+//    public final String uid = "test";
+//    public final String upw = "test";
+//    
+    public final String uid = "kitri";
+    public final String upw = "kitri";
+    
     public String sql = "";
     protected Connection con;
     protected Statement stmt;
