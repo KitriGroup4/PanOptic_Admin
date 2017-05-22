@@ -62,6 +62,7 @@ public class AdminLogin extends JFrame {
 //		Fix.FIXFRAME(this);
 //		login 이베트 등록
 		loginBtn.addActionListener(control);
+		
 	}
 
 	public static void main(String[] args) {
