@@ -41,7 +41,7 @@ import com.kitri.admin.main.statPanel.StatMain;
 //import com.kitri.admin.main.statPanel.StatMain;
 //import com.kitri.admin.main.storePanel.StoreMain;
 import com.kitri.admin.main.storePanel.StoreMain;
-import com.kitri.admin.main.storePanel.StoreSettle;
+import com.kitri.admin.main.storePanel.StoreSettleAccount;
 import com.kitri.admin.server.ServerThread;
 
 public class PcMain extends JFrame {
@@ -96,7 +96,7 @@ public class PcMain extends JFrame {
 	public ManageEmpDel delEmp;
 	public ManageEmpReg regEmp;
 	public ManageWageInfo wageInfo;
-	public StoreSettle settle;
+	public StoreSettleAccount settle;
 
 	public PcMain(ServerThread server) {
 		this.server = server;
@@ -113,7 +113,7 @@ public class PcMain extends JFrame {
 		delEmp = new ManageEmpDel();
 		regEmp = new ManageEmpReg();
 		wageInfo = new ManageWageInfo();
-		settle = new StoreSettle();
+		settle = new StoreSettleAccount();
 
 		comInfos = new ArrayList<>();
 		userTimes = new ArrayList<>();
