@@ -66,7 +66,6 @@ public class StoreServiceImpl implements StoreService {
 
 	@Override
 	public void updateSettleInfo(String name) {
-		// TODO Auto-generated method stub
 
 	}
 
